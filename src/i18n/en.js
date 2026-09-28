@@ -1,0 +1,43 @@
+/** English UI strings. Keys are namespaced by portal; keep mm.js in sync (CMS-15, MFI-23). */
+const en = {
+  common: {
+    appName: 'Credit Information Center',
+    appShort: 'CIC Myanmar',
+    ministry: 'Central Bank of Myanmar',
+    signIn: 'Sign in',
+    signOut: 'Sign out',
+    search: 'Search',
+    language: 'Language',
+    save: 'Save',
+    cancel: 'Cancel',
+    submit: 'Submit',
+    approve: 'Approve',
+    reject: 'Reject',
+    export: 'Export',
+    view: 'View',
+    back: 'Back',
+    asOf: 'As of',
+    skipToContent: 'Skip to main content',
+    textSize: 'Text size',
+    contrast: 'High contrast',
+    allPortals: 'All portals',
+  },
+  portals: {
+    public: 'Public Portal',
+    borrower: 'Borrower Self-Service',
+    mfi: 'MFI Member Portal',
+    gov: 'Government Portal',
+    regulator: 'Government Portal',
+    admin: 'Government Portal',
+  },
+  public: {
+    nav: { home: 'Home', services: 'Services', directory: 'MFI Directory', announcements: 'Announcements', publications: 'Publications', statistics: 'Statistics', verify: 'Verify Report', help: 'Help & FAQ' },
+    heroTitle: 'Trusted credit information for a fairer Myanmar',
+    heroSubtitle: 'The national registry that helps licensed microfinance institutions lend responsibly and lets every borrower see and correct their own credit record.',
+    ctaReport: 'Check my credit report',
+    ctaDirectory: 'Find a licensed MFI',
+  },
+  borrower: { nav: { home: 'My summary', report: 'My credit report', viewed: 'Who viewed my report', consents: 'Consents', disputes: 'Disputes', requests: 'Data requests', alerts: 'Alerts', profile: 'Profile' } },
+  mfi: { nav: { mfiPortal: 'MFI Portal' } },
+};
+export default en;

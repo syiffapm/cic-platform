@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --primary: 214 45% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 32% 95%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 214 32% 94%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 25% 90%;
+    --input: 214 25% 90%;
+    --ring: 214 45% 22%;
+    --radius: 0.625rem;
+    --accent-warm: 38 92% 50%;
+    --accent-teal: 173 58% 39%;
+  }
+  html.high-contrast {
+    --foreground: 0 0% 0%;
+    --muted-foreground: 0 0% 20%;
+    --border: 0 0% 40%;
+    --primary: 214 70% 15%;
+  }
+  html { font-size: var(--base-font-size, 16px); }
+  * { @apply border-border; }
+  body { @apply bg-slate-50 text-foreground antialiased; font-family: Poppins, 'Noto Sans Myanmar', system-ui, sans-serif; }
+  :lang(my) body, .font-mm { font-family: 'Noto Sans Myanmar', Poppins, sans-serif; }
+  /* Myanmar script needs taller lines and no forced letter-spacing. */
+  html.lang-mm body { line-height: 1.75; }
+  html.lang-mm [class*='tracking-'] { letter-spacing: 0 !important; }
+  html.lang-mm .leading-tight { line-height: 1.5 !important; }
+  :focus-visible { @apply outline-none ring-2 ring-warm ring-offset-2; }
+}
+
+@layer components {
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg; }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { @apply rounded-full bg-slate-300; }
+  .gov-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.08) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+}
