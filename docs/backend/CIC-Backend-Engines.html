@@ -1,0 +1,770 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>CIC Myanmar — Backend Engines</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; color: #0f172a; font-size: 9.6pt; line-height: 1.42; margin: 0; }
+  h1 { font-size: 26pt; margin: 0 0 6px; color: #1f3551; letter-spacing: -0.3px; }
+  h2 { font-size: 15pt; color: #1f3551; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; }
+  h3 { font-size: 12pt; margin: 0; display: inline; }
+  h4 { font-size: 8pt; text-transform: uppercase; letter-spacing: .5px; color: #64748b; margin: 8px 0 3px; }
+  p { margin: 0 0 6px; }
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; }
+  .cover .band { background: #1f3551; color: #fff; border-radius: 10px; padding: 26px 26px 22px; }
+  .cover .band h1 { color: #fff; }
+  .cover .kicker { color: #f59e0b; font-weight: 700; letter-spacing: 1.5px; font-size: 9pt; text-transform: uppercase; }
+  .cover .sub { font-size: 12pt; color: #dde6f1; max-width: 150mm; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+  .fact { background: rgba(255,255,255,.08); border-radius: 8px; padding: 10px; }
+  .fact b { display: block; font-size: 18pt; color: #fff; }
+  .fact span { font-size: 8.5pt; color: #bccde3; }
+  .meta-table td { padding: 3px 10px 3px 0; font-size: 9pt; } .meta-table td:first-child { color: #64748b; }
+  .section { page-break-before: always; }
+  .lead { font-size: 10.5pt; color: #334155; }
+  table.grid { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 8.6pt; }
+  table.grid th { background: #1f3551; color: #fff; text-align: left; padding: 5px 6px; font-weight: 600; }
+  table.grid td { border-bottom: 1px solid #e2e8f0; padding: 5px 6px; vertical-align: top; }
+  table.grid tr:nth-child(even) td { background: #f8fafc; }
+  table.grid tr { page-break-inside: avoid; }
+  .matrix th.c { text-align: center; font-size: 7.6pt; } .matrix td.c { text-align: center; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #0f766e; }
+  .mono { font-family: Menlo, Consolas, monospace; font-size: 8pt; } .b { font-weight: 700; } .small { font-size: 8.2pt; } .muted { color: #94a3b8; }
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 7.6pt; font-weight: 700; }
+  .p0 { background: #fee2e2; color: #991b1b; } .p1 { background: #fef3c7; color: #92400e; } .p2 { background: #e2e8f0; color: #334155; }
+  .card { border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px; margin: 0 0 10px; page-break-inside: avoid; }
+  .card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+  .card .id { font-family: Menlo, monospace; font-weight: 700; color: #0f766e; margin-right: 6px; }
+  .card .meta { display: flex; gap: 8px; align-items: center; } .card .spec { font-size: 7.8pt; color: #64748b; }
+  .purpose { margin-top: 6px; color: #334155; font-style: italic; }
+  .cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+  .cols ul { margin: 0; padding-left: 14px; } .cols li { margin-bottom: 3px; }
+  .side { border-left: 3px solid #f1f5f9; padding-left: 10px; }
+  .chip { display: inline-block; border-radius: 5px; padding: 1px 6px; margin: 0 2px 3px 0; font-size: 7.8pt; background: #dde6f1; color: #1f3551; }
+  .chip.int { background: #ccfbf1; color: #115e59; } .chip.ext { background: #fef3c7; color: #92400e; }
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin: 8px 0 12px; }
+  .principles div { border-left: 3px solid #f59e0b; padding: 2px 0 2px 8px; }
+  .flow { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px 4px; margin-bottom: 8px; page-break-inside: avoid; }
+  .flow h4 { color: #1f3551; font-size: 9pt; text-transform: none; letter-spacing: 0; margin: 2px 0 4px; }
+  .flow ol { margin: 0 0 4px; padding-left: 16px; } .flow li { margin-bottom: 2px; }
+  .phase { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; margin-bottom: 8px; }
+  .phase p { margin: 4px 0 0; font-size: 8.6pt; color: #334155; }
+  .legend { font-size: 8.4pt; color: #475569; }
+</style></head><body>
+
+<div class="cover">
+  <div class="band">
+    <div class="kicker">Credit Information Center · Central Bank of Myanmar</div>
+    <h1>Backend Engine Specification</h1>
+    <p class="sub">The services that must be built behind the Public website, Borrower self-service, MFI Member Portal and Government Portal — their scope, which portals use them, and what they integrate with.</p>
+    <div class="facts">
+      <div class="fact"><b>25</b><span>backend engines</span></div>
+      <div class="fact"><b>5</b><span>portals / portal areas</span></div>
+      <div class="fact"><b>14</b><span>external integrations</span></div>
+      <div class="fact"><b>16 / 7 / 2</b><span>Pilot / Production / Option</span></div>
+    </div>
+  </div>
+  <table class="meta-table">
+    <tr><td>Document</td><td>CIC Myanmar Platform — Backend Engines, scope &amp; integrations</td></tr>
+    <tr><td>Version</td><td>1.0 draft for internal review</td></tr>
+    <tr><td>Date</td><td>28 September 2026</td></tr>
+    <tr><td>Prepared by</td><td>PT. LinkIT 360 — Presales</td></tr>
+    <tr><td>Based on</td><td>CIC Myanmar Platform — E2E Requirements Specification v1.0; working prototype (cic-platform.vercel.app)</td></tr>
+  </table>
+</div>
+
+<div>
+  <h2>1. Summary</h2>
+  <p class="lead">The front-end prototype runs every portal on data kept in the browser. For production, that logic moves into 25 backend engines behind one API gateway. Each engine owns its data, exposes versioned APIs, and writes every sensitive action to the audit store. Portals never talk to a database directly.</p>
+  <div class="principles">
+    <div><b>One core, many portals.</b> Registry, inquiry, disputes and billing are built once and reused by every portal.</div>
+    <div><b>Security enforced on the server.</b> Tenant, role, CRUD permission and data scope are checked by the permission decision point on every call.</div>
+    <div><b>Maker-checker everywhere.</b> Licence changes, corrections, rule activation, publishing, role changes and large loans go through one approval engine.</div>
+    <div><b>Evidence by design.</b> Hash-chained audit, consent references, rule versions and data dates travel with every report.</div>
+    <div><b>Bilingual.</b> Content and UI strings are served in English and Myanmar (Unicode) from the CMS.</div>
+    <div><b>Integrations as options.</b> NRC, MCIX, MMCB and alternative data sit behind an integration hub with their own agreements.</div>
+  </div>
+  <h4>Phase legend</h4>
+  <p class="legend"><span class="badge p0">Pilot</span> needed before the 5-MFI pilot · <span class="badge p1">Production</span> needed before scaling to 30 MFIs · <span class="badge p2">Option</span> after the foundation is stable, subject to agreements.</p>
+  <h2 style="margin-top:14px">2. Architecture overview</h2>
+  <svg viewBox="0 -2 760 424" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+    <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#94a3b8"/></marker></defs><text x="0" y="18" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="0.6">PORTALS</text><rect x="0" y="24" width="145.6" height="34" rx="7" fill="#1f3551" stroke="#1f3551"/><text x="72.8" y="38" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">Public website</text><text x="72.8" y="51" text-anchor="middle" font-size="8.5" fill="#ffffff" opacity="0.8">Public zone (DMZ)</text><rect x="153.6" y="24" width="145.6" height="34" rx="7" fill="#1f3551" stroke="#1f3551"/><text x="226.39999999999998" y="38" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">Borrower portal</text><text x="226.39999999999998" y="51" text-anchor="middle" font-size="8.5" fill="#ffffff" opacity="0.8">Citizens</text><rect x="307.2" y="24" width="145.6" height="34" rx="7" fill="#1f3551" stroke="#1f3551"/><text x="380" y="38" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">MFI Member Portal</text><text x="380" y="51" text-anchor="middle" font-size="8.5" fill="#ffffff" opacity="0.8">Licensed MFIs</text><rect x="460.79999999999995" y="24" width="145.6" height="34" rx="7" fill="#1f3551" stroke="#1f3551"/><text x="533.5999999999999" y="38" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">Gov — Supervision</text><text x="533.5999999999999" y="51" text-anchor="middle" font-size="8.5" fill="#ffffff" opacity="0.8">Central Bank / FRD</text><rect x="614.4" y="24" width="145.6" height="34" rx="7" fill="#1f3551" stroke="#1f3551"/><text x="687.1999999999999" y="38" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">Gov — CMS &amp; Admin</text><text x="687.1999999999999" y="51" text-anchor="middle" font-size="8.5" fill="#ffffff" opacity="0.8">CIC operations</text><line x1="380" y1="58" x2="380" y2="70" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/><rect x="0" y="72" width="760" height="28" rx="7" fill="#fef3c7" stroke="#f59e0b"/><text x="380" y="90" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">E01 API Gateway &amp; Edge  ·  E02 Identity &amp; Access (citizen + workforce realms, permission decision point)</text><line x1="380" y1="100" x2="380" y2="112" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/><text x="0" y="122" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="0.6">ENGINES</text><rect x="0" y="128" width="184" height="178" rx="7" fill="#f1f5f9" stroke="#cbd5e1"/><text x="8" y="142" font-size="9.5" font-weight="700" fill="#1f3551">Credit registry core</text><text x="8" y="158" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E03</tspan> Institution Master &amp; Licensing</text><text x="8" y="173" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E04</tspan> Borrower &amp; Loan Registry</text><text x="8" y="188" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E05</tspan> Ingestion &amp; Data Quality</text><text x="8" y="203" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E06</tspan> Identity Resolution</text><text x="8" y="218" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E07</tspan> Inquiry &amp; Credit Report Engine</text><text x="8" y="233" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E08</tspan> Scoring &amp; Rules Engine</text><rect x="192" y="128" width="184" height="178" rx="7" fill="#f1f5f9" stroke="#cbd5e1"/><text x="200" y="142" font-size="9.5" font-weight="700" fill="#1f3551">Citizen &amp; lender journeys</text><text x="200" y="158" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E09</tspan> Consent Management</text><text x="200" y="173" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E10</tspan> Loan Application Hub</text><text x="200" y="188" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E11</tspan> Citizen Report Request Workflow</text><text x="200" y="203" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E12</tspan> Dispute &amp; Correction</text><rect x="384" y="128" width="184" height="178" rx="7" fill="#f1f5f9" stroke="#cbd5e1"/><text x="392" y="142" font-size="9.5" font-weight="700" fill="#1f3551">Supervision &amp; governance</text><text x="392" y="158" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E13</tspan> Supervision &amp; Case Management</text><text x="392" y="173" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E14</tspan> Helpdesk, Grievance &amp; Data Protec…</text><text x="392" y="188" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E15</tspan> Metering, Billing &amp; Payments</text><rect x="576" y="128" width="184" height="178" rx="7" fill="#f1f5f9" stroke="#cbd5e1"/><text x="584" y="142" font-size="9.5" font-weight="700" fill="#1f3551">Shared platform services</text><text x="584" y="158" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E16</tspan> Notification Service</text><text x="584" y="173" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E17</tspan> Workflow &amp; Maker-Checker</text><text x="584" y="188" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E18</tspan> Content Management (Headless CMS)</text><text x="584" y="203" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E19</tspan> Audit &amp; Security Logging</text><text x="584" y="218" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E20</tspan> Reporting, Analytics &amp; Geo (DWH)</text><text x="584" y="233" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E21</tspan> Document &amp; File Service</text><text x="584" y="248" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E22</tspan> Search Service</text><text x="584" y="263" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E23</tspan> Operations: Scheduler, Config &amp; B…</text><text x="584" y="278" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E24</tspan> External Integration Hub</text><text x="584" y="293" font-size="8.8" fill="#0f172a"><tspan font-weight="700" fill="#0f766e">E25</tspan> AI Services</text><line x1="380" y1="306" x2="380" y2="318" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/><text x="0" y="328" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="0.6">DATA</text><rect x="0" y="334" width="145.6" height="32" rx="7" fill="#ecfdf5" stroke="#10b981"/><text x="72.8" y="347" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Registry DB</text><text x="72.8" y="360" text-anchor="middle" font-size="8.5" fill="#0f172a" opacity="0.8">encrypted PII, versioned</text><rect x="153.6" y="334" width="145.6" height="32" rx="7" fill="#ecfdf5" stroke="#10b981"/><text x="226.39999999999998" y="347" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Operational DBs</text><text x="226.39999999999998" y="360" text-anchor="middle" font-size="8.5" fill="#0f172a" opacity="0.8">per engine</text><rect x="307.2" y="334" width="145.6" height="32" rx="7" fill="#ecfdf5" stroke="#10b981"/><text x="380" y="347" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Analytics DWH</text><text x="380" y="360" text-anchor="middle" font-size="8.5" fill="#0f172a" opacity="0.8">pseudonymised</text><rect x="460.79999999999995" y="334" width="145.6" height="32" rx="7" fill="#ecfdf5" stroke="#10b981"/><text x="533.5999999999999" y="347" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Audit store</text><text x="533.5999999999999" y="360" text-anchor="middle" font-size="8.5" fill="#0f172a" opacity="0.8">hash chain, WORM</text><rect x="614.4" y="334" width="145.6" height="32" rx="7" fill="#ecfdf5" stroke="#10b981"/><text x="687.1999999999999" y="347" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Object storage</text><text x="687.1999999999999" y="360" text-anchor="middle" font-size="8.5" fill="#0f172a" opacity="0.8">files, PDFs, media</text><text x="0" y="384" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="0.6">EXTERNAL</text><rect x="0" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="51.714285714285715" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">MFI core banking</text><rect x="109.42857142857143" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="161.14285714285714" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Gov / MFI SSO</text><rect x="218.85714285714286" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="270.57142857142856" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">SMS &amp; email</text><rect x="328.2857142857143" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="380" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">eKYC</text><rect x="437.7142857142857" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="489.42857142857144" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">Payment gateways</text><rect x="547.1428571428571" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="598.8571428571428" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">SIEM / SOC</text><rect x="656.5714285714286" y="390" width="103.42857142857143" height="28" rx="7" fill="#ffffff" stroke="#94a3b8"/><text x="708.2857142857142" y="408" text-anchor="middle" font-size="10.5" font-weight="600" fill="#0f172a">NRC · MCIX · MMCB</text></svg>
+</div>
+
+<div class="section">
+  <h2>3. Engine catalogue</h2>
+  
+<table class="grid">
+  <thead><tr><th>ID</th><th>Engine</th><th>Group</th><th>Phase</th><th>Purpose</th></tr></thead>
+  <tbody><tr><td class="mono b">E01</td><td class="b">API Gateway &amp; Edge</td><td>Edge &amp; security</td><td><span class="badge p0">Pilot</span></td><td>Single entry point for every portal and machine client; nothing talks to a database directly.</td></tr><tr><td class="mono b">E02</td><td class="b">Identity &amp; Access Management (IAM)</td><td>Edge &amp; security</td><td><span class="badge p0">Pilot</span></td><td>Two identity realms — citizens and workforce — plus the permission decision point used by every service.</td></tr><tr><td class="mono b">E03</td><td class="b">Institution Master &amp; Licensing</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>One record per MFI that drives the public directory, supervision, billing and ingestion validation.</td></tr><tr><td class="mono b">E04</td><td class="b">Borrower &amp; Loan Registry</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>The golden record of borrowers, loans, guarantees and repayment history — versioned and auditable.</td></tr><tr><td class="mono b">E05</td><td class="b">Ingestion &amp; Data Quality</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>Takes monthly/daily submissions from MFIs, validates them and loads clean data into the registry.</td></tr><tr><td class="mono b">E06</td><td class="b">Identity Resolution</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>Decides which borrower a record belongs to — and never auto-merges look-alikes.</td></tr><tr><td class="mono b">E07</td><td class="b">Inquiry &amp; Credit Report Engine</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>Purpose-bound, consented inquiries that produce Basic/Full reports, PDFs and verifiable snapshots.</td></tr><tr><td class="mono b">E08</td><td class="b">Scoring &amp; Rules Engine</td><td>Credit registry core</td><td><span class="badge p0">Pilot</span></td><td>Versioned rule sets for credit grade, early-warning and over-indebtedness — the same result everywhere.</td></tr><tr><td class="mono b">E09</td><td class="b">Consent Management</td><td>Citizen &amp; lender journeys</td><td><span class="badge p0">Pilot</span></td><td>Proof that every inquiry was permitted, and a place for citizens to see and revoke consents.</td></tr><tr><td class="mono b">E10</td><td class="b">Loan Application Hub</td><td>Citizen &amp; lender journeys</td><td><span class="badge p1">Production</span></td><td>Citizens apply online to a licensed MFI; the MFI checks, decides and disburses; the loan lands in the registry.</td></tr><tr><td class="mono b">E11</td><td class="b">Citizen Report Request Workflow</td><td>Citizen &amp; lender journeys</td><td><span class="badge p1">Production</span></td><td>A citizen asks for their own report; CIC validates the data, an officer approves and the report is issued.</td></tr><tr><td class="mono b">E12</td><td class="b">Dispute &amp; Correction</td><td>Citizen &amp; lender journeys</td><td><span class="badge p0">Pilot</span></td><td>Borrower disputes flow to the reporting MFI, then to CIC for approved corrections — with SLA clocks.</td></tr><tr><td class="mono b">E13</td><td class="b">Supervision &amp; Case Management</td><td>Supervision &amp; governance</td><td><span class="badge p1">Production</span></td><td>Turns alerts and complaints into cases with owners, deadlines, decisions and actions.</td></tr><tr><td class="mono b">E14</td><td class="b">Helpdesk, Grievance &amp; Data Protection</td><td>Supervision &amp; governance</td><td><span class="badge p1">Production</span></td><td>Service desk for citizens and the DPO toolset for privacy obligations.</td></tr><tr><td class="mono b">E15</td><td class="b">Metering, Billing &amp; Payments</td><td>Supervision &amp; governance</td><td><span class="badge p1">Production</span></td><td>Charges for reports and subscriptions, keeps the ledger and reconciles every payment.</td></tr><tr><td class="mono b">E16</td><td class="b">Notification Service</td><td>Shared platform services</td><td><span class="badge p1">Production</span></td><td>Every SMS, email, in-app message and webhook, from EN/MM templates with a delivery log.</td></tr><tr><td class="mono b">E17</td><td class="b">Workflow &amp; Maker-Checker</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>One approval engine for every sensitive change so the rules are enforced the same way everywhere.</td></tr><tr><td class="mono b">E18</td><td class="b">Content Management (Headless CMS)</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>All public and portal content, bilingual, with workflow and classification enforced by the API.</td></tr><tr><td class="mono b">E19</td><td class="b">Audit &amp; Security Logging</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>Tamper-evident record of who did what, to which record, for what purpose.</td></tr><tr><td class="mono b">E20</td><td class="b">Reporting, Analytics &amp; Geo (DWH)</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>One source of numbers — KPI dictionary, dashboards, statutory reports, open data and maps.</td></tr><tr><td class="mono b">E21</td><td class="b">Document &amp; File Service</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>Storage and processing for every uploaded or generated file.</td></tr><tr><td class="mono b">E22</td><td class="b">Search Service</td><td>Shared platform services</td><td><span class="badge p1">Production</span></td><td>Site-wide search for the public website and quick finders in the portals.</td></tr><tr><td class="mono b">E23</td><td class="b">Operations: Scheduler, Config &amp; Backup</td><td>Shared platform services</td><td><span class="badge p0">Pilot</span></td><td>Runs the platform: jobs, configuration, feature flags, backups and disaster recovery.</td></tr><tr><td class="mono b">E24</td><td class="b">External Integration Hub</td><td>Shared platform services</td><td><span class="badge p2">Option</span></td><td>Adapters to national and partner systems, each behind its own agreement.</td></tr><tr><td class="mono b">E25</td><td class="b">AI Services</td><td>Shared platform services</td><td><span class="badge p2">Option</span></td><td>Assistive AI kept separate from decisions that affect citizens.</td></tr></tbody>
+</table>
+</div>
+
+<div class="section">
+  <h2>4. Which portals use which engine</h2>
+  
+<table class="grid matrix">
+  <thead><tr><th>Engine</th><th class="c">Public website</th><th class="c">Borrower self-service</th><th class="c">MFI Member Portal</th><th class="c">Government — Supervision</th><th class="c">Government — CMS &amp; Administration</th></tr></thead>
+  <tbody><tr><td><span class="mono b">E01</span> API Gateway &amp; Edge</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E02</span> Identity &amp; Access Management (IAM)</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E03</span> Institution Master &amp; Licensing</td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E04</span> Borrower &amp; Loan Registry</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E05</span> Ingestion &amp; Data Quality</td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E06</span> Identity Resolution</td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E07</span> Inquiry &amp; Credit Report Engine</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E08</span> Scoring &amp; Rules Engine</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E09</span> Consent Management</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"></td></tr><tr><td><span class="mono b">E10</span> Loan Application Hub</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td></tr><tr><td><span class="mono b">E11</span> Citizen Report Request Workflow</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E12</span> Dispute &amp; Correction</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E13</span> Supervision &amp; Case Management</td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td></tr><tr><td><span class="mono b">E14</span> Helpdesk, Grievance &amp; Data Protection</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E15</span> Metering, Billing &amp; Payments</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E16</span> Notification Service</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E17</span> Workflow &amp; Maker-Checker</td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E18</span> Content Management (Headless CMS)</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E19</span> Audit &amp; Security Logging</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E20</span> Reporting, Analytics &amp; Geo (DWH)</td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E21</span> Document &amp; File Service</td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E22</span> Search Service</td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E23</span> Operations: Scheduler, Config &amp; Backup</td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td></tr><tr><td><span class="mono b">E24</span> External Integration Hub</td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"><span class="dot"></span></td><td class="c"></td></tr><tr><td><span class="mono b">E25</span> AI Services</td><td class="c"><span class="dot"></span></td><td class="c"></td><td class="c"></td><td class="c"><span class="dot"></span></td><td class="c"></td></tr></tbody>
+</table>
+  <p class="legend">Public website and CMS-published content are served from the public zone and never hold personal data; all other portals sit behind the gateway in the private zone.</p>
+</div>
+
+<div class="section">
+  <h2>5. Engine details — scope and integrations</h2>
+  
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E01</span><h3>API Gateway &amp; Edge</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">Architecture §3, SEC-06, §11.1</span></div>
+  </div>
+  <p class="purpose">Single entry point for every portal and machine client; nothing talks to a database directly.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Routing of public zone (DMZ) and private zone APIs; versioned REST (/v1)</li><li>WAF, rate limiting, bot protection, DDoS shield on public endpoints</li><li>mTLS + OAuth2 client-credentials for MFI system-to-system APIs</li><li>Token validation, tenant ID injected from token (never from request body)</li><li>Request/correlation IDs propagated to Audit &amp; Logging</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E02 Identity &amp; Access Management (IAM)</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">CDN / DNS provider</span> <span class="chip ext">MFI core banking systems (API clients)</span> <span class="chip ext">National CERT / SOC (threat feeds)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">All /v1/* routes<br/>Public API (directory, notices, statistics)<br/>Report verification API</p>
+      <h4>Data owned</h4>
+      <p class="small">Gateway config, API client registry, rate-limit counters</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E02</span><h3>Identity &amp; Access Management (IAM)</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C1, SEC-01/02/07, ADM-03/04</span></div>
+  </div>
+  <p class="purpose">Two identity realms — citizens and workforce — plus the permission decision point used by every service.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Citizen realm: registration with NRC + phone + own password, identity verification (selfie eKYC / SMS to phone on record at an MFI / branch activation code), SMS OTP on every sign-in, lockout after 5 failures</li><li>Workforce realm: CIC, Central Bank and MFI staff; SSO (OIDC/SAML) + TOTP/FIDO2; IP allow-lists; session policy 10 min idle / 8 h absolute</li><li>Policy decision point: role catalogue, CRUD + Approve + Export matrix per feature, data scope (all / regional / own institution / aggregates / masked PII)</li><li>Role builder and user assignment with maker-checker; MFI role templates assigned by MFI administrators</li><li>Dormant-account auto-disable (90 days), access recertification campaigns, break-glass accounts</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E18 Content Management (Headless CMS)</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E20 Reporting, Analytics &amp; Geo (DWH)</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">Government SSO / directory (CBM, CIC)</span> <span class="chip ext">MFI identity providers (SAML/OIDC)</span> <span class="chip ext">SMS gateway (OTP)</span> <span class="chip ext">eKYC / face-match provider</span> <span class="chip ext">National NRC registry (option)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/auth/citizen/*<br/>/v1/auth/workforce/*<br/>/v1/iam/roles<br/>/v1/iam/users<br/>/v1/iam/decide (PDP)</p>
+      <h4>Data owned</h4>
+      <p class="small">Citizen accounts, staff users, roles &amp; permission matrix, sessions, MFA factors</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E03</span><h3>Institution Master &amp; Licensing</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C2, GOV-03, ADM-05, PUB-05</span></div>
+  </div>
+  <p class="purpose">One record per MFI that drives the public directory, supervision, billing and ingestion validation.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Institution register: licence number, tier, capital, branches, contacts, products, geo location</li><li>Licence status lifecycle (Licensed / Under review / Suspended / Revoked) with history; changes by Licensing Officer, approved by Director</li><li>Publish flag feeding the public MFI directory</li><li>Reference data: regions, townships, product types, purpose codes, dispute reasons, currencies, holidays</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span> <span class="chip int">E13 Supervision &amp; Case Management</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">FRD licensing system (option)</span> <span class="chip ext">Myanmar township/region reference data</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/institutions<br/>/v1/institutions/{id}/licence<br/>/v1/reference/*</p>
+      <h4>Data owned</h4>
+      <p class="small">Institutions, licence history, branches, reference tables</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E04</span><h3>Borrower &amp; Loan Registry</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C3</span></div>
+  </div>
+  <p class="purpose">The golden record of borrowers, loans, guarantees and repayment history — versioned and auditable.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Borrower master (resolved identity, NRC incl. previous NRC, names MM/EN, demographics, address)</li><li>Loans, guarantors, group membership, 24-month repayment history, classification, write-offs, closure</li><li>Record versioning: every correction creates a new version with lineage to the dispute or batch</li><li>Loans disbursed through online applications posted immediately and reconciled with the next monthly batch</li><li>Retention and purge by data class</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E05 Ingestion &amp; Data Quality</span> <span class="chip int">E06 Identity Resolution</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E09 Consent Management</span> <span class="chip int">E11 Citizen Report Request Workflow</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal only (via Inquiry, Ingestion, Disputes, Analytics)</p>
+      <h4>Data owned</h4>
+      <p class="small">Registry DB (encrypted fields: NRC, phone, address), record versions</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E05</span><h3>Ingestion &amp; Data Quality</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C4, MFI-07..12, ADM-06, AC01/AC02</span></div>
+  </div>
+  <p class="purpose">Takes monthly/daily submissions from MFIs, validates them and loads clean data into the registry.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Intake: CSV / XLSX / XML upload, SFTP and Submission API (idempotency key = batch ID)</li><li>Schema versions (v3.x), downloadable templates, DQ rules (errors / warnings), row-level validation report</li><li>Maker-checker sign-off with attestation; bulk sign-off for checkers</li><li>Reconciliation against control totals; reject queue, re-process, resubmission without duplicates</li><li>Submission calendar, cut-offs, late flags; DQ score per batch and per MFI</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E06 Identity Resolution</span> <span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E18 Content Management (Headless CMS)</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E21 Document &amp; File Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">MFI core banking / loan systems (API, SFTP)</span> <span class="chip ext">Object storage (raw files)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">POST /v1/batches<br/>GET /v1/batches/{id}/validation<br/>/v1/batches/{id}/signoff<br/>/v1/schemas</p>
+      <h4>Data owned</h4>
+      <p class="small">Batches, rows staging, validation results, reconciliation, DQ rules</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E06</span><h3>Identity Resolution</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C5, ADM-07, AC03, LOC-02/03</span></div>
+  </div>
+  <p class="purpose">Decides which borrower a record belongs to — and never auto-merges look-alikes.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>NRC parsing and normalisation (Myanmar/Latin digits, township codes, citizenship type)</li><li>Name normalisation (honorifics U/Daw/Ko/Ma, Unicode, Zawgyi detection)</li><li>Matching: single match / multiple candidates / no-hit; similarity scores</li><li>Merge / not-same / split review queue with maker-checker and full lineage</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">MFI Member Portal</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">National NRC registry (option)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal: /resolve, /candidates; Admin: /v1/identity/pairs</p>
+      <h4>Data owned</h4>
+      <p class="small">Match candidates, decisions, lineage graph</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E07</span><h3>Inquiry &amp; Credit Report Engine</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C6, MFI-02..06, PUB-09, AC05</span></div>
+  </div>
+  <p class="purpose">Purpose-bound, consented inquiries that produce Basic/Full reports, PDFs and verifiable snapshots.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Search by NRC or CIC borrower ID; purpose code and consent reference mandatory</li><li>Report assembly: Basic (summary, exposure, delinquency flag, grade) and Full (24-month grid, guarantees, inquiries, dispute flags, reason codes)</li><li>Entitlement check: report unlocked per institution per borrower for 30 days (pay-per-report) or covered by subscription</li><li>Citizen personal report snapshots (issued after CIC approval, valid 30 days)</li><li>PDF rendering with QR, watermark, rule version and data date; public verification (valid / revoked / expired / not found)</li><li>Inquiry log that feeds "Who viewed my report"</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E08 Scoring &amp; Rules Engine</span> <span class="chip int">E09 Consent Management</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E21 Document &amp; File Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">MFI loan origination systems (Inquiry API)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">POST /v1/inquiries<br/>GET /v1/reports/{id}<br/>GET /v1/reports/{id}/pdf<br/>GET /v1/verify?id=&amp;code=</p>
+      <h4>Data owned</h4>
+      <p class="small">Inquiry log, report snapshots, verification codes</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E08</span><h3>Scoring &amp; Rules Engine</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C6, ADM-08, GOV-08/09/19, S4</span></div>
+  </div>
+  <p class="purpose">Versioned rule sets for credit grade, early-warning and over-indebtedness — the same result everywhere.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Credit grade A–E with points and reason codes (no-hit returns no grade, never a low score)</li><li>EWS rules library (PAR30, late submissions, concentration…) generating alerts</li><li>Over-indebtedness rules (≥ 3 active loans, debt-to-income thresholds) by township</li><li>Rule-set lifecycle: draft → test on sample → approve → activate with effective date → rollback</li><li>Policy impact simulation on historical data; statistical score model as a later option</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E13 Supervision &amp; Case Management</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E11 Citizen Report Request Workflow</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal: /score, /ews/evaluate; Admin: /v1/rulesets</p>
+      <h4>Data owned</h4>
+      <p class="small">Rule sets and versions, simulation results</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E09</span><h3>Consent Management</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">G16, MFI-03, BOR-07</span></div>
+  </div>
+  <p class="purpose">Proof that every inquiry was permitted, and a place for citizens to see and revoke consents.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Digital consent from the borrower portal (one inquiry, one application, 30-day validity) and branch-captured consent with document reference</li><li>Consent verification at inquiry time (not expired, not used, right institution and purpose)</li><li>Consent log per citizen; revocation where law allows (e.g. alternative data)</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E10 Loan Application Hub</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E21 Document &amp; File Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/consents<br/>/v1/consents/{ref}/verify</p>
+      <h4>Data owned</h4>
+      <p class="small">Consents, evidence documents, usage</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E10</span><h3>Loan Application Hub</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">Citizen journey 3, MFI applications</span></div>
+  </div>
+  <p class="purpose">Citizens apply online to a licensed MFI; the MFI checks, decides and disburses; the loan lands in the registry.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Application submission (product, amount, tenor, income, purpose) with affordability and over-indebtedness warnings</li><li>Routing to the chosen MFI inbox; branch-captured applications</li><li>Credit check via Inquiry (purchase Basic/Full or subscription), decision (approve / decline with reason), second approval above threshold</li><li>Disbursement → registry posting; status tracking and notifications to the applicant; withdrawal</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E09 Consent Management</span> <span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E13 Supervision &amp; Case Management</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">MFI loan origination systems (webhooks)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/applications<br/>/v1/applications/{id}/decision<br/>/v1/applications/{id}/disburse</p>
+      <h4>Data owned</h4>
+      <p class="small">Applications, decisions, status history</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E11</span><h3>Citizen Report Request Workflow</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">Citizen journey 2, BOR-04/05</span></div>
+  </div>
+  <p class="purpose">A citizen asks for their own report; CIC validates the data, an officer approves and the report is issued.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Request (purpose, notification channel, free quota 1 per 12 months, fee thereafter, free re-issue after a corrected dispute)</li><li>Automated validation: identity match, data freshness per lender, open disputes, pending corrections, quota</li><li>Officer review queue with SLA (1 working day), approve &amp; issue snapshot or reject with reason</li><li>Notification on issue/rejection; expiry after 30 days</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">Government — CMS &amp; Administration</span> <span class="chip">Government — Supervision</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E08 Scoring &amp; Rules Engine</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/report-requests<br/>/v1/report-requests/{id}/decision</p>
+      <h4>Data owned</h4>
+      <p class="small">Requests, automated checks, decisions</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E12</span><h3>Dispute &amp; Correction</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C7, BOR-08/09, MFI-13, ADM-09, GOV-11, AC06</span></div>
+  </div>
+  <p class="purpose">Borrower disputes flow to the reporting MFI, then to CIC for approved corrections — with SLA clocks.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Dispute filing (record, reason code, evidence upload with virus scan) by citizen or helpdesk</li><li>MFI response within 10 working days; correction proposal (field, old, new)</li><li>CIC approval creating a new registry version; rejection back to MFI</li><li>SLA timers, escalation to Central Bank consumer protection, dispute flags on reports</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E21 Document &amp; File Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/disputes<br/>/v1/disputes/{id}/response<br/>/v1/disputes/{id}/correction</p>
+      <h4>Data owned</h4>
+      <p class="small">Disputes, evidence, SLA events, corrections</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E13</span><h3>Supervision &amp; Case Management</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">GOV-04..12</span></div>
+  </div>
+  <p class="purpose">Turns alerts and complaints into cases with owners, deadlines, decisions and actions.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>EWS alert queue (from Scoring &amp; Rules), triage, dismissal with reason</li><li>Supervisory cases: investigate, information requests to MFIs, decision (Director approval), action (warning, fine, suspension)</li><li>Complaint register fed by the public grievance form; linkage to MFIs</li><li>Borrower-level drill-down only with logged justification; regional scope for regional supervisors</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Government — Supervision</span> <span class="chip">MFI Member Portal</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E08 Scoring &amp; Rules Engine</span> <span class="chip int">E03 Institution Master &amp; Licensing</span> <span class="chip int">E14 Helpdesk, Grievance &amp; Data Protection</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E21 Document &amp; File Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/alerts<br/>/v1/cases<br/>/v1/info-requests<br/>/v1/complaints</p>
+      <h4>Data owned</h4>
+      <p class="small">Alerts, cases, correspondence, decisions</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E14</span><h3>Helpdesk, Grievance &amp; Data Protection</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">ADM-09/14, PUB-12, BOR-11</span></div>
+  </div>
+  <p class="purpose">Service desk for citizens and the DPO toolset for privacy obligations.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Tickets: identity verification, grievances, general enquiries; assignment, templates, SLA, escalation matrix</li><li>Data subject requests (access, rectification, account closure) with due dates</li><li>Retention schedule by data class, breach register with notification clock, DPIA records, policy acknowledgements</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">Government — CMS &amp; Administration</span> <span class="chip">Government — Supervision</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E02 Identity &amp; Access Management (IAM)</span> <span class="chip int">E12 Dispute &amp; Correction</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">Email / hotline system (option)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/tickets<br/>/v1/grievances<br/>/v1/dsr<br/>/v1/breaches</p>
+      <h4>Data owned</h4>
+      <p class="small">Tickets, DSRs, breaches, DPIAs</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E15</span><h3>Metering, Billing &amp; Payments</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">C9, ADM-10, MFI-18, AC08</span></div>
+  </div>
+  <p class="purpose">Charges for reports and subscriptions, keeps the ledger and reconciles every payment.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Billable events: Basic USD 2 / Full USD 4 per borrower per institution (shared for 30 days), no charge for no-hit or retries</li><li>Plans: pay-per-report (prepaid wallet or monthly invoice) and Unlimited-checks subscription</li><li>Citizen fees for extra personal reports</li><li>Checkout, wallet top-ups, receipts; monthly invoice run, credit notes, reconciliation, payment status</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">Payment gateways: KBZPay, Wave Money, AYA Pay, CB Pay, MPU/Visa/Mastercard, bank transfer</span> <span class="chip ext">Accounting / ERP (option)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/billing/events<br/>/v1/checkout<br/>/v1/wallets<br/>/v1/invoices<br/>/v1/subscriptions<br/>Payment webhooks</p>
+      <h4>Data owned</h4>
+      <p class="small">Ledger, entitlements, wallets, invoices, payments</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E16</span><h3>Notification Service</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">C10, ADM-11</span></div>
+  </div>
+  <p class="purpose">Every SMS, email, in-app message and webhook, from EN/MM templates with a delivery log.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Channels: SMS, email, in-app, MFI webhooks (HMAC-signed)</li><li>Templates in English and Myanmar with variables; retries; opt-out (except mandatory/security)</li><li>Delivery log with masked recipients</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">SMS gateway / telcos (MPT, Ooredoo/ATOM, Mytel)</span> <span class="chip ext">SMTP relay (government mail policy)</span> <span class="chip ext">MFI webhook endpoints</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal: /notify; Admin: /v1/templates, /v1/deliveries</p>
+      <h4>Data owned</h4>
+      <p class="small">Templates, delivery log, opt-outs</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E17</span><h3>Workflow &amp; Maker-Checker</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">SEC-03</span></div>
+  </div>
+  <p class="purpose">One approval engine for every sensitive change so the rules are enforced the same way everywhere.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Pending requests with diff, maker, checker role; maker can never approve their own item</li><li>Used by: licence changes, role/user changes, rule activation, data corrections, content publishing, config, batch sign-off, identity merges, large-loan second approval</li><li>Approvals inbox, SLA, audit of decisions; effect applied on approval</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E16 Notification Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/approvals<br/>/v1/approvals/{id}/decide</p>
+      <h4>Data owned</h4>
+      <p class="small">Approval requests, decisions</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E18</span><h3>Content Management (Headless CMS)</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C8, CMS-01..16, ADM-02, AC07/AC11</span></div>
+  </div>
+  <p class="purpose">All public and portal content, bilingual, with workflow and classification enforced by the API.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Content types: pages, services, announcements, news, FAQ, publications, banners, forms, glossary</li><li>EN/MM fields, Zawgyi detection, translation status; UI string dictionary for all portals</li><li>Workflow draft → review → approve → schedule → publish → archive; version history and restore</li><li>Classification (Public / MFI-only / Regulator-only / Internal) enforced server-side</li><li>Media library with virus scan and alt text; navigation/landing layout; targeted notices with read receipts</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E21 Document &amp; File Service</span> <span class="chip int">E22 Search Service</span> <span class="chip int">E16 Notification Service</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">CDN for the public website</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/content<br/>/v1/content/{id}/publish<br/>/v1/media<br/>/v1/i18n/{lang}</p>
+      <h4>Data owned</h4>
+      <p class="small">Content items &amp; versions, media, UI string dictionary</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E19</span><h3>Audit &amp; Security Logging</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C11, SEC-08, ADM-12, AC04</span></div>
+  </div>
+  <p class="purpose">Tamper-evident record of who did what, to which record, for what purpose.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Hash-chained audit entries (actor, role, tenant, IP, action, target, purpose, before/after, outcome) on WORM storage</li><li>Security events: failed logins, MFA failures, IP anomalies, privileged actions, break-glass use, cross-tenant denials</li><li>Daily integrity check; search, saved queries, CSV/signed-PDF extracts; SIEM export (syslog/JSON)</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span> <span class="chip">Borrower self-service</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="muted">None (append-only sink)</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">SIEM / SOC (CBM or national CERT)</span> <span class="chip ext">WORM archive storage</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal: /audit (append-only); Admin: /v1/audit, /v1/audit/verify</p>
+      <h4>Data owned</h4>
+      <p class="small">Audit log (10-year WORM), security log, admin change log</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E20</span><h3>Reporting, Analytics &amp; Geo (DWH)</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">C12, GOV-01/02/14/16/17, PUB-08</span></div>
+  </div>
+  <p class="purpose">One source of numbers — KPI dictionary, dashboards, statutory reports, open data and maps.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Pseudonymised data warehouse fed from the registry and operational engines</li><li>KPI dictionary with definitions, lineage and as-of dates; executive, supervisor, operations dashboards</li><li>Lending activity, citizen adoption, report-request and billing metrics</li><li>Township/region aggregates and boundaries for heat-maps; census layers</li><li>Scheduled statutory reports (bulletins, scorecards), ad-hoc builder on anonymised data, public statistics and CSV downloads</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E04 Borrower &amp; Loan Registry</span> <span class="chip int">E05 Ingestion &amp; Data Quality</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E10 Loan Application Hub</span> <span class="chip int">E12 Dispute &amp; Correction</span> <span class="chip int">E15 Metering, Billing &amp; Payments</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">GIS boundaries (geoBoundaries / national MIMU data)</span> <span class="chip ext">Census data sources</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/kpis<br/>/v1/stats (public)<br/>/v1/reports/scheduled<br/>/v1/geo/*</p>
+      <h4>Data owned</h4>
+      <p class="small">DWH (pseudonymised), aggregates, report outputs</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E21</span><h3>Document &amp; File Service</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">CMS-08, BOR-08, MFI-06</span></div>
+  </div>
+  <p class="purpose">Storage and processing for every uploaded or generated file.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Object storage for batch files, evidence, consent forms, media, report PDFs</li><li>Virus scanning, type/size limits, signed URLs, retention tags</li><li>PDF generation (reports, receipts, invoices, statutory reports) with QR and watermark</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">Object storage (in-country or CBM-approved hosting)</span> <span class="chip ext">Antivirus engine</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal: /files, /pdf/render</p>
+      <h4>Data owned</h4>
+      <p class="small">Files and metadata</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E22</span><h3>Search Service</h3></div>
+    <div class="meta"><span class="badge p1">Production</span><span class="spec">PUB-13</span></div>
+  </div>
+  <p class="purpose">Site-wide search for the public website and quick finders in the portals.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Index of services, notices, FAQ, publications, MFI directory (public classification only)</li><li>Myanmar-aware tokenisation; "no result" analytics for the CMS</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E18 Content Management (Headless CMS)</span> <span class="chip int">E03 Institution Master &amp; Licensing</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="muted">None</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/search</p>
+      <h4>Data owned</h4>
+      <p class="small">Search index</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E23</span><h3>Operations: Scheduler, Config &amp; Backup</h3></div>
+    <div class="meta"><span class="badge p0">Pilot</span><span class="spec">ADM-13, SEC-10, AC09</span></div>
+  </div>
+  <p class="purpose">Runs the platform: jobs, configuration, feature flags, backups and disaster recovery.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Job scheduler (ingestion windows, EWS runs, report generation, retention purge, invoice run)</li><li>Configuration with change approval, feature flags, maintenance mode, API client registry</li><li>Backups (RPO 1 h), quarterly restore tests (RTO 4 h), DR site; health monitoring and uptime</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Government — CMS &amp; Administration</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E17 Workflow &amp; Maker-Checker</span> <span class="chip int">E19 Audit &amp; Security Logging</span> <span class="chip int">E16 Notification Service</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">Monitoring / APM</span> <span class="chip ext">Backup &amp; DR infrastructure</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Admin: /v1/jobs, /v1/config, /v1/flags, /v1/backups</p>
+      <h4>Data owned</h4>
+      <p class="small">Job runs, config versions, backup records</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E24</span><h3>External Integration Hub</h3></div>
+    <div class="meta"><span class="badge p2">Option</span><span class="spec">§11.2, G19</span></div>
+  </div>
+  <p class="purpose">Adapters to national and partner systems, each behind its own agreement.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>NRC registry lookup for identity verification</li><li>Data exchange with MCIX and Myanmar Credit Bureau (MMCB) to avoid double reporting</li><li>Alternative data (telco / utility) with borrower consent</li><li>Retry, circuit breaking and audit for every outbound call</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Borrower self-service</span> <span class="chip">MFI Member Portal</span> <span class="chip">Government — Supervision</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E06 Identity Resolution</span> <span class="chip int">E07 Inquiry &amp; Credit Report Engine</span> <span class="chip int">E09 Consent Management</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">National NRC registry</span> <span class="chip ext">MCIX (ThitsaWorks / MMA)</span> <span class="chip ext">Myanmar Credit Bureau (MMCB)</span> <span class="chip ext">Telco / utility data providers</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">Internal adapters only</p>
+      <h4>Data owned</h4>
+      <p class="small">Integration logs, mapping tables</p>
+    </div>
+  </div>
+</section>
+<section class="card">
+  <div class="card-h">
+    <div><span class="id">E25</span><h3>AI Services</h3></div>
+    <div class="meta"><span class="badge p2">Option</span><span class="spec">AI Scope Specification (AI-01, AI-05/06)</span></div>
+  </div>
+  <p class="purpose">Assistive AI kept separate from decisions that affect citizens.</p>
+  <div class="cols">
+    <div>
+      <h4>Scope</h4>
+      <ul><li>Public assistant answering from published content only (no personal data)</li><li>Anomaly and over-indebtedness insights for supervisors (explainable, human-reviewed)</li></ul>
+    </div>
+    <div class="side">
+      <h4>Used by portals</h4>
+      <p><span class="chip">Public website</span> <span class="chip">Government — Supervision</span></p>
+      <h4>Integrates with — internal</h4>
+      <p><span class="chip int">E18 Content Management (Headless CMS)</span> <span class="chip int">E20 Reporting, Analytics &amp; Geo (DWH)</span> <span class="chip int">E19 Audit &amp; Security Logging</span></p>
+      <h4>Integrates with — external</h4>
+      <p><span class="chip ext">LLM / ML hosting (per data-residency decision)</span></p>
+      <h4>Key APIs</h4>
+      <p class="mono small">/v1/assistant<br/>Internal: /insights</p>
+      <h4>Data owned</h4>
+      <p class="small">Prompt/response logs (no PII), model versions</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="section">
+  <h2>6. External integrations</h2>
+  
+<table class="grid">
+  <thead><tr><th>External system</th><th>Used for</th><th>Engines</th><th>Phase</th></tr></thead>
+  <tbody><tr><td class="b">MFI core banking &amp; loan systems</td><td>Batch submission (API/SFTP), inquiries, application webhooks</td><td class="mono">E01, E05, E07, E10</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">Government SSO / directory (CBM, CIC)</td><td>Workforce sign-in and MFA</td><td class="mono">E02</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">SMS gateway / telcos</td><td>OTP, notifications</td><td class="mono">E02, E16</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">SMTP relay</td><td>Email notifications</td><td class="mono">E16</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">eKYC / face-match provider</td><td>Citizen identity verification</td><td class="mono">E02</td><td><span class="badge p1">Production</span></td></tr><tr><td class="b">Payment gateways (KBZPay, Wave Money, AYA Pay, CB Pay, cards, bank)</td><td>Checkout, top-ups, invoice payment</td><td class="mono">E15</td><td><span class="badge p1">Production</span></td></tr><tr><td class="b">SIEM / SOC</td><td>Security monitoring</td><td class="mono">E19</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">Object storage &amp; antivirus</td><td>Files, evidence, PDFs</td><td class="mono">E21</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">CDN / DNS / WAF provider</td><td>Public website delivery, protection</td><td class="mono">E01, E18</td><td><span class="badge p0">Pilot</span></td></tr><tr><td class="b">GIS boundaries &amp; census sources</td><td>Maps and township aggregates</td><td class="mono">E20</td><td><span class="badge p1">Production</span></td></tr><tr><td class="b">National NRC registry</td><td>Authoritative identity check</td><td class="mono">E02, E06, E24</td><td><span class="badge p2">Option</span></td></tr><tr><td class="b">MCIX / Myanmar Credit Bureau</td><td>Cross-bureau data exchange</td><td class="mono">E24</td><td><span class="badge p2">Option</span></td></tr><tr><td class="b">Telco / utility data providers</td><td>Alternative data with consent</td><td class="mono">E24</td><td><span class="badge p2">Option</span></td></tr><tr><td class="b">LLM / ML hosting</td><td>Assistant and insights</td><td class="mono">E25</td><td><span class="badge p2">Option</span></td></tr></tbody>
+</table>
+  <h2 style="margin-top:16px">7. How the engines work together</h2>
+  <div class="flow"><h4>Citizen gets a credit report</h4><ol><li>PUB/BOR → E02 register, verify identity (eKYC or SMS), confirmation by E16</li><li>BOR → E11 request report → E04 + E06 automated validation</li><li>ADM officer → E11 approve (E17 rules) → E07 issue snapshot → E21 PDF + QR</li><li>E16 SMS/email "report ready" → BOR views report; E19 logs every step</li><li>Anyone → PUB → E07 verify report ID + code</li></ol></div><div class="flow"><h4>Citizen applies for a loan</h4><ol><li>BOR → E10 application + E09 digital consent</li><li>MFI → E10 inbox → E07 inquiry (E15 charges Basic/Full or subscription; E08 grade)</li><li>MFI → E10 decision (second approval via E17 above threshold) → disburse</li><li>E10 → E04 posts the loan; E16 notifies the citizen; E20 updates lending statistics</li></ol></div><div class="flow"><h4>Monthly data submission</h4><ol><li>MFI system → E01 → E05 batch (idempotent) → validation report</li><li>MFI checker → E17 sign-off with attestation</li><li>E05 → E06 identity resolution → E04 load + reconciliation</li><li>E08 EWS evaluation → E13 alerts; E20 KPIs; E19 audit</li></ol></div><div class="flow"><h4>Dispute and correction</h4><ol><li>BOR (or E14 helpdesk) → E12 dispute + evidence (E21 virus scan)</li><li>MFI → E12 response / correction within SLA</li><li>ADM steward → E12 approve (E17) → E04 new record version</li><li>E16 notifies the citizen; SLA breach → E13 consumer-protection escalation</li></ol></div><div class="flow"><h4>Publishing a public notice</h4><ol><li>ADM editor → E18 draft (EN/MM) → E17 review by publisher</li><li>E18 publish (classification enforced) → CDN / E22 search index</li><li>Regulator notices: GOV → E18 → publication approval → PUB</li></ol></div>
+</div>
+
+<div class="section">
+  <h2>8. Build phasing</h2>
+  
+  <div class="phase"><div><span class="badge p0">Pilot</span> <b>16 engines</b></div>
+  <p>E01 API Gateway &amp; Edge · E02 Identity &amp; Access Management (IAM) · E03 Institution Master &amp; Licensing · E04 Borrower &amp; Loan Registry · E05 Ingestion &amp; Data Quality · E06 Identity Resolution · E07 Inquiry &amp; Credit Report Engine · E08 Scoring &amp; Rules Engine · E09 Consent Management · E12 Dispute &amp; Correction · E17 Workflow &amp; Maker-Checker · E18 Content Management (Headless CMS) · E19 Audit &amp; Security Logging · E20 Reporting, Analytics &amp; Geo (DWH) · E21 Document &amp; File Service · E23 Operations: Scheduler, Config &amp; Backup</p></div>
+  <div class="phase"><div><span class="badge p1">Production</span> <b>7 engines</b></div>
+  <p>E10 Loan Application Hub · E11 Citizen Report Request Workflow · E13 Supervision &amp; Case Management · E14 Helpdesk, Grievance &amp; Data Protection · E15 Metering, Billing &amp; Payments · E16 Notification Service · E22 Search Service</p></div>
+  <div class="phase"><div><span class="badge p2">Option</span> <b>2 engines</b></div>
+  <p>E24 External Integration Hub · E25 AI Services</p></div>
+  <h4>Open decisions that affect the backend</h4>
+  <ul>
+    <li>Hosting location and data residency (in-country or CBM-approved cloud) — affects E21, E20, E25.</li>
+    <li>Identity verification route for citizens (NRC registry API, MFI phone OTP, branch activation) — affects E02, E24.</li>
+    <li>Payment providers and settlement accounts — affects E15.</li>
+    <li>CIC's role versus MCIX and MMCB, and whether data exchange is in scope — affects E24.</li>
+    <li>Exact CBM regulation clauses for retention, dispute SLA and consent — affects E04, E09, E12, E14, E19.</li>
+  </ul>
+</div>
+</body></html>

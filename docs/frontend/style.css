@@ -1,0 +1,49 @@
+
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; color: #0f172a; font-size: 9.6pt; line-height: 1.42; margin: 0; }
+  h1 { font-size: 26pt; margin: 0 0 6px; color: #1f3551; letter-spacing: -0.3px; }
+  h2 { font-size: 15pt; color: #1f3551; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; }
+  h3 { font-size: 12pt; margin: 0; display: inline; }
+  h4 { font-size: 8pt; text-transform: uppercase; letter-spacing: .5px; color: #64748b; margin: 8px 0 3px; }
+  p { margin: 0 0 6px; }
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; }
+  .cover .band { background: #1f3551; color: #fff; border-radius: 10px; padding: 26px 26px 22px; }
+  .cover .band h1 { color: #fff; }
+  .cover .kicker { color: #f59e0b; font-weight: 700; letter-spacing: 1.5px; font-size: 9pt; text-transform: uppercase; }
+  .cover .sub { font-size: 12pt; color: #dde6f1; max-width: 150mm; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+  .fact { background: rgba(255,255,255,.08); border-radius: 8px; padding: 10px; }
+  .fact b { display: block; font-size: 18pt; color: #fff; }
+  .fact span { font-size: 8.5pt; color: #bccde3; }
+  .meta-table td { padding: 3px 10px 3px 0; font-size: 9pt; } .meta-table td:first-child { color: #64748b; }
+  .section { page-break-before: always; }
+  .lead { font-size: 10.5pt; color: #334155; }
+  table.grid { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 8.6pt; }
+  table.grid th { background: #1f3551; color: #fff; text-align: left; padding: 5px 6px; font-weight: 600; }
+  table.grid td { border-bottom: 1px solid #e2e8f0; padding: 5px 6px; vertical-align: top; }
+  table.grid tr:nth-child(even) td { background: #f8fafc; }
+  table.grid tr { page-break-inside: avoid; }
+  .matrix th.c { text-align: center; font-size: 7.6pt; } .matrix td.c { text-align: center; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #0f766e; }
+  .mono { font-family: Menlo, Consolas, monospace; font-size: 8pt; } .b { font-weight: 700; } .small { font-size: 8.2pt; } .muted { color: #94a3b8; }
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 7.6pt; font-weight: 700; }
+  .p0 { background: #fee2e2; color: #991b1b; } .p1 { background: #fef3c7; color: #92400e; } .p2 { background: #e2e8f0; color: #334155; }
+  .card { border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px; margin: 0 0 10px; page-break-inside: avoid; }
+  .card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+  .card .id { font-family: Menlo, monospace; font-weight: 700; color: #0f766e; margin-right: 6px; }
+  .card .meta { display: flex; gap: 8px; align-items: center; } .card .spec { font-size: 7.8pt; color: #64748b; }
+  .purpose { margin-top: 6px; color: #334155; font-style: italic; }
+  .cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+  .cols ul { margin: 0; padding-left: 14px; } .cols li { margin-bottom: 3px; }
+  .side { border-left: 3px solid #f1f5f9; padding-left: 10px; }
+  .chip { display: inline-block; border-radius: 5px; padding: 1px 6px; margin: 0 2px 3px 0; font-size: 7.8pt; background: #dde6f1; color: #1f3551; }
+  .chip.int { background: #ccfbf1; color: #115e59; } .chip.ext { background: #fef3c7; color: #92400e; }
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin: 8px 0 12px; }
+  .principles div { border-left: 3px solid #f59e0b; padding: 2px 0 2px 8px; }
+  .flow { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px 4px; margin-bottom: 8px; page-break-inside: avoid; }
+  .flow h4 { color: #1f3551; font-size: 9pt; text-transform: none; letter-spacing: 0; margin: 2px 0 4px; }
+  .flow ol { margin: 0 0 4px; padding-left: 16px; } .flow li { margin-bottom: 2px; }
+  .phase { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; margin-bottom: 8px; }
+  .phase p { margin: 4px 0 0; font-size: 8.6pt; color: #334155; }
+  .legend { font-size: 8.4pt; color: #475569; }

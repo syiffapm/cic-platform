@@ -1,0 +1,454 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>CIC Myanmar — Frontend Pages</title>
+<style>
+  @page { size: A4; margin: 16mm 14mm 18mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; color: #0f172a; font-size: 9.6pt; line-height: 1.42; margin: 0; }
+  h1 { font-size: 26pt; margin: 0 0 6px; color: #1f3551; letter-spacing: -0.3px; }
+  h2 { font-size: 15pt; color: #1f3551; margin: 0 0 8px; padding-bottom: 6px; border-bottom: 2px solid #f59e0b; }
+  h3 { font-size: 12pt; margin: 0; display: inline; }
+  h4 { font-size: 8pt; text-transform: uppercase; letter-spacing: .5px; color: #64748b; margin: 8px 0 3px; }
+  p { margin: 0 0 6px; }
+  .cover { height: 245mm; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; }
+  .cover .band { background: #1f3551; color: #fff; border-radius: 10px; padding: 26px 26px 22px; }
+  .cover .band h1 { color: #fff; }
+  .cover .kicker { color: #f59e0b; font-weight: 700; letter-spacing: 1.5px; font-size: 9pt; text-transform: uppercase; }
+  .cover .sub { font-size: 12pt; color: #dde6f1; max-width: 150mm; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
+  .fact { background: rgba(255,255,255,.08); border-radius: 8px; padding: 10px; }
+  .fact b { display: block; font-size: 18pt; color: #fff; }
+  .fact span { font-size: 8.5pt; color: #bccde3; }
+  .meta-table td { padding: 3px 10px 3px 0; font-size: 9pt; } .meta-table td:first-child { color: #64748b; }
+  .section { page-break-before: always; }
+  .lead { font-size: 10.5pt; color: #334155; }
+  table.grid { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 8.6pt; }
+  table.grid th { background: #1f3551; color: #fff; text-align: left; padding: 5px 6px; font-weight: 600; }
+  table.grid td { border-bottom: 1px solid #e2e8f0; padding: 5px 6px; vertical-align: top; }
+  table.grid tr:nth-child(even) td { background: #f8fafc; }
+  table.grid tr { page-break-inside: avoid; }
+  .matrix th.c { text-align: center; font-size: 7.6pt; } .matrix td.c { text-align: center; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #0f766e; }
+  .mono { font-family: Menlo, Consolas, monospace; font-size: 8pt; } .b { font-weight: 700; } .small { font-size: 8.2pt; } .muted { color: #94a3b8; }
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 7.6pt; font-weight: 700; }
+  .p0 { background: #fee2e2; color: #991b1b; } .p1 { background: #fef3c7; color: #92400e; } .p2 { background: #e2e8f0; color: #334155; }
+  .card { border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px; margin: 0 0 10px; page-break-inside: avoid; }
+  .card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+  .card .id { font-family: Menlo, monospace; font-weight: 700; color: #0f766e; margin-right: 6px; }
+  .card .meta { display: flex; gap: 8px; align-items: center; } .card .spec { font-size: 7.8pt; color: #64748b; }
+  .purpose { margin-top: 6px; color: #334155; font-style: italic; }
+  .cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+  .cols ul { margin: 0; padding-left: 14px; } .cols li { margin-bottom: 3px; }
+  .side { border-left: 3px solid #f1f5f9; padding-left: 10px; }
+  .chip { display: inline-block; border-radius: 5px; padding: 1px 6px; margin: 0 2px 3px 0; font-size: 7.8pt; background: #dde6f1; color: #1f3551; }
+  .chip.int { background: #ccfbf1; color: #115e59; } .chip.ext { background: #fef3c7; color: #92400e; }
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin: 8px 0 12px; }
+  .principles div { border-left: 3px solid #f59e0b; padding: 2px 0 2px 8px; }
+  .flow { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px 4px; margin-bottom: 8px; page-break-inside: avoid; }
+  .flow h4 { color: #1f3551; font-size: 9pt; text-transform: none; letter-spacing: 0; margin: 2px 0 4px; }
+  .flow ol { margin: 0 0 4px; padding-left: 16px; } .flow li { margin-bottom: 2px; }
+  .phase { border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 10px; margin-bottom: 8px; }
+  .phase p { margin: 4px 0 0; font-size: 8.6pt; color: #334155; }
+  .legend { font-size: 8.4pt; color: #475569; }
+
+  .pages td { font-size: 8.3pt; } .muted2 { color: #475569; margin-top: 2px; } .c { text-align: center; }
+  .kv td:first-child { width: 28%; font-weight: 700; color: #1f3551; }
+</style></head><body>
+<div class="cover">
+  <div class="band">
+    <div class="kicker">Credit Information Center · Central Bank of Myanmar</div>
+    <h1>Frontend Page Specification</h1>
+    <p class="sub">Every screen of the Public website, Borrower self-service, MFI Member Portal and Government Portal — route, purpose, key UI, who can open it, and which backend engines it calls.</p>
+    <div class="facts">
+      <div class="fact"><b>107</b><span>pages / screens</span></div>
+      <div class="fact"><b>5</b><span>portals / portal areas</span></div>
+      <div class="fact"><b>2</b><span>languages (EN / MM)</span></div>
+      <div class="fact"><b>0</b><span>serious WCAG issues (axe)</span></div>
+    </div>
+  </div>
+  <table class="meta-table">
+    <tr><td>Document</td><td>CIC Myanmar Platform — Frontend pages, access &amp; backend dependencies</td></tr>
+    <tr><td>Version</td><td>1.0 draft for internal review</td></tr>
+    <tr><td>Date</td><td>28 September 2026</td></tr>
+    <tr><td>Prepared by</td><td>PT. LinkIT 360 — Presales</td></tr>
+    <tr><td>Reference build</td><td>cic-platform.vercel.app · github.com/syiffapm/cic-platform</td></tr>
+    <tr><td>Companion</td><td>CIC Myanmar Platform — Backend Engine Specification (engine IDs E01–E25)</td></tr>
+  </table>
+</div>
+
+<div>
+  <h2>1. Summary</h2>
+  <p class="lead">The frontend is one codebase with five portal areas, each loaded as its own bundle. Menus, routes and buttons follow the role-based permission matrix; every screen is available in English and Myanmar. The reference build keeps data in the browser — in production each page calls the backend engines listed next to it.</p>
+  <table class="grid"><thead><tr><th>Portal</th><th>Base route</th><th>Users</th><th class="c">Pages</th></tr></thead><tbody><tr><td class="b">Public website</td><td class="mono">/</td><td>Citizens, borrowers, media, investors — no sign-in</td><td class="c b">17</td></tr><tr><td class="b">Borrower self-service</td><td class="mono">/borrower</td><td>Registered citizens (borrowers and guarantors)</td><td class="c b">18</td></tr><tr><td class="b">MFI Member Portal</td><td class="mono">/mfi</td><td>Staff of licensed MFIs — roles: Administrator, Credit Officer, Data Submitter, Data Approver, Dispute Officer, Viewer</td><td class="c b">21</td></tr><tr><td class="b">Government Portal — Supervision</td><td class="mono">/gov</td><td>Central Bank of Myanmar / FRD — Director, Supervisors (national &amp; regional), Consumer Protection, Analyst, Licensing</td><td class="c b">23</td></tr><tr><td class="b">Government Portal — CMS &amp; Platform administration</td><td class="mono">/gov/admin</td><td>CIC operations — Super Admin, Security Admin, Content Editor/Publisher, Data Steward, Helpdesk, Billing, Auditor, DPO</td><td class="c b">28</td></tr>
+    <tr><td class="b">Total</td><td></td><td></td><td class="c b">107</td></tr></tbody></table>
+  <h2 style="margin-top:14px">2. Technology &amp; standards</h2>
+  <table class="grid kv"><tbody><tr><td>Framework</td><td>React 18 + Vite 5, React Router 6 (one lazy-loaded bundle per portal)</td></tr><tr><td>Styling</td><td>Tailwind CSS 3 with design tokens (navy primary, amber accent, teal), Poppins + Noto Sans Myanmar (self-hosted)</td></tr><tr><td>Charts &amp; maps</td><td>Recharts; Leaflet + TopoJSON boundaries (330 townships, 15 states/regions)</td></tr><tr><td>Languages</td><td>English and Myanmar (Unicode) on every screen; translation dictionary served from the CMS</td></tr><tr><td>Accessibility</td><td>WCAG 2.1 AA — 0 serious axe violations, no horizontal scroll at 390 px, keyboard and screen-reader support</td></tr><tr><td>Security in the UI</td><td>Role-based menus, routes and buttons from the permission matrix; masked personal data by role; session info in the header</td></tr><tr><td>Hosting</td><td>Static SPA (currently Vercel); in production served behind the API gateway / CDN</td></tr></tbody></table>
+</div>
+
+<div class="section">
+  <h2>3. Shared frontend foundation</h2>
+  <table class="grid kv"><tbody><tr><td>Design system (UI kit)</td><td>Button, Card, Badge, StatCard (KPI with definition + as-of), DataTable (sort, search, paging; cards on phones), Modal, Form fields, Tabs, Alert, Toast, Timeline, Stepper, MakerCheckerBanner, ChartCard, EmptyState</td></tr><tr><td>Layouts</td><td>Public header/footer with accessibility toolbar and language switch; portal shell with collapsible, searchable sidebar (/ or Ctrl+K), notifications, "Your access" popover, session info</td></tr><tr><td>Authentication screens</td><td>Citizen sign-in (/login) with first-sign-in and SMS code steps; Staff Workspace sign-in (/workspace/login) with authenticator step; auth guards per portal</td></tr><tr><td>Permission layer</td><td>usePermissions(portal).can(feature, action) driving sidebar items, route guards (access-denied screen + audit) and every create / update / delete / approve / export control</td></tr><tr><td>Localisation layer</td><td>Runtime translator for all rendered text and attributes, Myanmar typography rules, browser-language default, EN/MM switch</td></tr><tr><td>State &amp; data access</td><td>Store and auth contexts today (browser storage); replaced by API clients per backend engine in production</td></tr><tr><td>Common patterns</td><td>Confirmation dialogs with reason for irreversible actions, work queues ("Needs your action" / "My work"), SLA badges, empty and error states, print/PDF views with QR</td></tr></tbody></table>
+  <h4>Backend engine reference (IDs used in the page tables)</h4>
+  <table class="grid"><thead><tr><th>ID</th><th>Backend engine</th><th>ID</th><th>Backend engine</th></tr></thead><tbody><tr><td class="mono b">E01</td><td>API Gateway &amp; Edge</td><td class="mono b">E14</td><td>Helpdesk, Grievance &amp; Data Protection</td></tr><tr><td class="mono b">E02</td><td>Identity &amp; Access Management (IAM)</td><td class="mono b">E15</td><td>Metering, Billing &amp; Payments</td></tr><tr><td class="mono b">E03</td><td>Institution Master &amp; Licensing</td><td class="mono b">E16</td><td>Notification Service</td></tr><tr><td class="mono b">E04</td><td>Borrower &amp; Loan Registry</td><td class="mono b">E17</td><td>Workflow &amp; Maker-Checker</td></tr><tr><td class="mono b">E05</td><td>Ingestion &amp; Data Quality</td><td class="mono b">E18</td><td>Content Management (Headless CMS)</td></tr><tr><td class="mono b">E06</td><td>Identity Resolution</td><td class="mono b">E19</td><td>Audit &amp; Security Logging</td></tr><tr><td class="mono b">E07</td><td>Inquiry &amp; Credit Report Engine</td><td class="mono b">E20</td><td>Reporting, Analytics &amp; Geo (DWH)</td></tr><tr><td class="mono b">E08</td><td>Scoring &amp; Rules Engine</td><td class="mono b">E21</td><td>Document &amp; File Service</td></tr><tr><td class="mono b">E09</td><td>Consent Management</td><td class="mono b">E22</td><td>Search Service</td></tr><tr><td class="mono b">E10</td><td>Loan Application Hub</td><td class="mono b">E23</td><td>Operations: Scheduler, Config &amp; Backup</td></tr><tr><td class="mono b">E11</td><td>Citizen Report Request Workflow</td><td class="mono b">E24</td><td>External Integration Hub</td></tr><tr><td class="mono b">E12</td><td>Dispute &amp; Correction</td><td class="mono b">E25</td><td>AI Services</td></tr><tr><td class="mono b">E13</td><td>Supervision &amp; Case Management</td><td class="mono b"></td><td></td></tr></tbody></table>
+</div>
+
+<div class="section">
+  <h2>4. Public website</h2>
+  <p class="lead"><b>Base route:</b> <span class="mono">/</span> · <b>Users:</b> Citizens, borrowers, media, investors — no sign-in · <b>17 pages</b></p>
+  <table class="grid pages">
+    <thead><tr><th style="width:21%">Route</th><th style="width:15%">Page</th><th>Purpose &amp; key UI</th><th style="width:15%">Access</th><th style="width:12%">Engines</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">/</td><td class="b">Home</td>
+      <td><div>Official front door of CIC</div><div class="small muted2">Hero banner with CTAs, service cards, latest announcements, know-your-rights, publications teaser, AI assistant</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Search Service">E22</span> <span class="chip int" title="AI Services">E25</span></td></tr>
+      <tr><td class="mono">/services</td><td class="b">Services</td>
+      <td><div>Citizen-facing CIC services only</div><div class="small muted2">Filterable service cards (fee, where to get it)</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/services/:slug</td><td class="b">Service detail</td>
+      <td><div>How to use one service</div><div class="small muted2">Description, eligibility, fee, SLA, steps, documents, related FAQ, CTA to the right portal</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/mfi-directory</td><td class="b">MFI directory</td>
+      <td><div>Find and verify licensed lenders</div><div class="small muted2">Search by name / licence / township, filters, cards or table</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Institution Master &amp; Licensing">E03</span></td></tr>
+      <tr><td class="mono">/mfi-directory/:id</td><td class="b">MFI profile</td>
+      <td><div>Licence status and contact of one lender</div><div class="small muted2">Licence history, warnings for suspended/revoked, branches, map, products, complaint link, apply-for-loan CTA</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Institution Master &amp; Licensing">E03</span></td></tr>
+      <tr><td class="mono">/announcements</td><td class="b">Announcements</td>
+      <td><div>Public notices only</div><div class="small muted2">Category filter, attachments</div></td>
+      <td class="small">Everyone (public classification enforced)</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/announcements/:id</td><td class="b">Announcement detail</td>
+      <td><div>Read one notice</div><div class="small muted2">Bilingual body, attachment</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/publications</td><td class="b">Publications</td>
+      <td><div>Regulations, guidelines, forms, reports</div><div class="small muted2">Type filter, version, effective date, download</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Document &amp; File Service">E21</span></td></tr>
+      <tr><td class="mono">/statistics</td><td class="b">Statistics</td>
+      <td><div>Open sector data</div><div class="small muted2">Charts with as-of labels, table view, CSV download</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/verify</td><td class="b">Verify a report</td>
+      <td><div>Check a CIC report is genuine</div><div class="small muted2">Report ID + 6-digit code or QR; valid / revoked / expired / not found only</div></td>
+      <td class="small">Everyone (rate-limited)</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span></td></tr>
+      <tr><td class="mono">/my-credit</td><td class="b">Check my credit report</td>
+      <td><div>How citizens get access</div><div class="small muted2">3 steps, 3 verification routes, what you will see, register / sign-in CTAs</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/how-it-works</td><td class="b">How it works</td>
+      <td><div>Step-by-step citizen journeys</div><div class="small muted2">Access, score, loan, dispute, verification guides linking to real pages</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/help</td><td class="b">Help &amp; FAQ</td>
+      <td><div>Answers and contacts</div><div class="small muted2">FAQ by category with search and helpfulness votes, helpdesk contacts</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/help/grievance</td><td class="b">Complaint / feedback</td>
+      <td><div>Report an MFI, an unlicensed lender or a website problem</div><div class="small muted2">Form with CAPTCHA, ticket number and SLA acknowledgement</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span></td></tr>
+      <tr><td class="mono">/search</td><td class="b">Search</td>
+      <td><div>Site-wide search</div><div class="small muted2">Grouped results: services, notices, FAQ, publications, MFIs</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Search Service">E22</span></td></tr>
+      <tr><td class="mono">/privacy · /terms · /accessibility · /cookies</td><td class="b">Legal pages</td>
+      <td><div>Privacy notice, terms, accessibility statement, cookie policy</div><div class="small muted2">CMS-managed legal content; cookie consent banner</div></td>
+      <td class="small">Everyone</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/login</td><td class="b">Citizen sign-in</td>
+      <td><div>Sign in to Borrower self-service</div><div class="small muted2">NRC or phone + password, SMS code, lockout, first-sign-in password change</div></td>
+      <td class="small">Citizens</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span></td></tr></tbody>
+  </table>
+</div>
+<div class="section">
+  <h2>5. Borrower self-service</h2>
+  <p class="lead"><b>Base route:</b> <span class="mono">/borrower</span> · <b>Users:</b> Registered citizens (borrowers and guarantors) · <b>18 pages</b></p>
+  <table class="grid pages">
+    <thead><tr><th style="width:21%">Route</th><th style="width:15%">Page</th><th>Purpose &amp; key UI</th><th style="width:15%">Access</th><th style="width:12%">Engines</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">/borrower/register</td><td class="b">Register</td>
+      <td><div>Create an account</div><div class="small muted2">Details + own password (draft saved), SMS/email confirmation choice, identity check (selfie / SMS to lender phone / branch code), assisted-registration info</div></td>
+      <td class="small">Anyone with an NRC</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/borrower</td><td class="b">My summary</td>
+      <td><div>Credit file at a glance</div><div class="small muted2">Score card (after a report is issued), late-payment warning, KPIs, who looked recently, applications, disputes, alerts, welcome checklist</div></td>
+      <td class="small">Citizen (own data only)</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Loan Application Hub">E10</span> <span class="chip int" title="Citizen Report Request Workflow">E11</span> <span class="chip int" title="Dispute &amp; Correction">E12</span></td></tr>
+      <tr><td class="mono">/borrower/report</td><td class="b">My credit report</td>
+      <td><div>Full personal report</div><div class="small muted2">Score with factors and tips, loans by lender, plain-language repayment summary + 24-month grid, guarantees, dispute flags, validity countdown, next steps</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Scoring &amp; Rules Engine">E08</span></td></tr>
+      <tr><td class="mono">/borrower/report/print</td><td class="b">Report PDF</td>
+      <td><div>Printable report</div><div class="small muted2">Watermark, report ID, verification code, QR</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Document &amp; File Service">E21</span></td></tr>
+      <tr><td class="mono">/borrower/requests</td><td class="b">My report requests</td>
+      <td><div>Track report requests</div><div class="small muted2">Status list, open request tracker</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Citizen Report Request Workflow">E11</span></td></tr>
+      <tr><td class="mono">/borrower/requests/new</td><td class="b">Request my report</td>
+      <td><div>Ask CIC for a report</div><div class="small muted2">Purpose, notification channel, fee/quota notice, declaration</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Citizen Report Request Workflow">E11</span> <span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/borrower/requests/:id</td><td class="b">Request detail</td>
+      <td><div>Follow validation and approval</div><div class="small muted2">Stepper, automated checks in plain language, timeline, decision, link to report</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Citizen Report Request Workflow">E11</span></td></tr>
+      <tr><td class="mono">/borrower/loans</td><td class="b">My loans &amp; applications</td>
+      <td><div>Loans being repaid and applications</div><div class="small muted2">KPIs, applications list, active loans table</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Borrower &amp; Loan Registry">E04</span> <span class="chip int" title="Loan Application Hub">E10</span></td></tr>
+      <tr><td class="mono">/borrower/loans/apply</td><td class="b">Apply for a loan</td>
+      <td><div>Online application to a licensed MFI</div><div class="small muted2">Choose lender, loan details with affordability and over-indebtedness warnings, consent step, sticky submit</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Loan Application Hub">E10</span> <span class="chip int" title="Consent Management">E09</span> <span class="chip int" title="Institution Master &amp; Licensing">E03</span></td></tr>
+      <tr><td class="mono">/borrower/loans/:id</td><td class="b">Application detail</td>
+      <td><div>Follow the lender decision</div><div class="small muted2">Status tracker, decision, decline reason, consent card, withdraw</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Loan Application Hub">E10</span></td></tr>
+      <tr><td class="mono">/borrower/who-viewed</td><td class="b">Who viewed my report</td>
+      <td><div>Transparency of access</div><div class="small muted2">Lender, date, purpose, linked application, 24 months</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span></td></tr>
+      <tr><td class="mono">/borrower/consents</td><td class="b">Consents</td>
+      <td><div>See and revoke consents</div><div class="small muted2">Consent log, revoke with confirmation</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Consent Management">E09</span></td></tr>
+      <tr><td class="mono">/borrower/disputes</td><td class="b">Disputes</td>
+      <td><div>Disputes filed</div><div class="small muted2">Tabs by status, SLA badges</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span></td></tr>
+      <tr><td class="mono">/borrower/disputes/new</td><td class="b">File a dispute</td>
+      <td><div>Report wrong information</div><div class="small muted2">Record picker, reason code, evidence upload (virus-scanned)</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span> <span class="chip int" title="Document &amp; File Service">E21</span></td></tr>
+      <tr><td class="mono">/borrower/disputes/:id</td><td class="b">Dispute detail</td>
+      <td><div>Follow a dispute</div><div class="small muted2">Stepper, SLA countdown, lender response, outcome, corrected record</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span></td></tr>
+      <tr><td class="mono">/borrower/data-requests</td><td class="b">Data requests</td>
+      <td><div>Privacy rights</div><div class="small muted2">Access / rectification / account closure requests</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span></td></tr>
+      <tr><td class="mono">/borrower/alerts</td><td class="b">Alerts</td>
+      <td><div>Notifications and preferences</div><div class="small muted2">Alert feed, channel preferences</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/borrower/profile</td><td class="b">Profile &amp; security</td>
+      <td><div>Account settings</div><div class="small muted2">Contact details, password, MFA, sessions, authorised representatives, close account</div></td>
+      <td class="small">Citizen</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span></td></tr></tbody>
+  </table>
+</div>
+<div class="section">
+  <h2>6. MFI Member Portal</h2>
+  <p class="lead"><b>Base route:</b> <span class="mono">/mfi</span> · <b>Users:</b> Staff of licensed MFIs — roles: Administrator, Credit Officer, Data Submitter, Data Approver, Dispute Officer, Viewer · <b>21 pages</b></p>
+  <table class="grid pages">
+    <thead><tr><th style="width:21%">Route</th><th style="width:15%">Page</th><th>Purpose &amp; key UI</th><th style="width:15%">Access</th><th style="width:12%">Engines</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">/workspace/login</td><td class="b">Staff sign-in</td>
+      <td><div>Staff Workspace entry (shared with Government)</div><div class="small muted2">Work email + password, authenticator code, role decides the portal</div></td>
+      <td class="small">MFI and government staff</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span></td></tr>
+      <tr><td class="mono">/mfi</td><td class="b">Dashboard</td>
+      <td><div>What to do now</div><div class="small muted2">"Needs your attention" queue, KPIs, loan applications widget, report spend, notices</div></td>
+      <td class="small">All MFI roles</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span> <span class="chip int" title="Loan Application Hub">E10</span> <span class="chip int" title="Dispute &amp; Correction">E12</span> <span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/mfi/credit/applications</td><td class="b">Loan applications</td>
+      <td><div>Inbox of online and branch applications</div><div class="small muted2">Urgency filter, SLA countdown, capture application, export</div></td>
+      <td class="small">mfi.applications</td><td><span class="chip int" title="Loan Application Hub">E10</span></td></tr>
+      <tr><td class="mono">/mfi/applications/:id</td><td class="b">Application detail</td>
+      <td><div>Check, decide and disburse</div><div class="small muted2">Applicant, affordability, consent evidence, choose Basic USD 2 / Full USD 4, decision, second approval, disbursement</div></td>
+      <td class="small">mfi.applications</td><td><span class="chip int" title="Loan Application Hub">E10</span> <span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Metering, Billing &amp; Payments">E15</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/mfi/credit/inquiry</td><td class="b">Credit inquiry</td>
+      <td><div>Walk-in / branch inquiries</div><div class="small muted2">Search by NRC or borrower ID, purpose + consent, tier choice, report view</div></td>
+      <td class="small">mfi.inquiry</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Consent Management">E09</span> <span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/mfi/credit/batch</td><td class="b">Batch inquiry</td>
+      <td><div>Portfolio review lists</div><div class="small muted2">CSV template download, upload, results</div></td>
+      <td class="small">mfi.batchInquiry</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span></td></tr>
+      <tr><td class="mono">/mfi/credit/unlocked</td><td class="b">Unlocked reports</td>
+      <td><div>Reports already paid by the institution</div><div class="small muted2">Borrower (masked), tier, unlocked by, valid until, cost</div></td>
+      <td class="small">mfi.inquiry</td><td><span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/mfi/checkout</td><td class="b">Checkout</td>
+      <td><div>Pay for a report, top-up or subscription</div><div class="small muted2">Order summary, wallet / invoice / KBZPay / Wave / bank, receipt</div></td>
+      <td class="small">Report buyers; plan changes by MFI Administrator</td><td><span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/mfi/submissions</td><td class="b">Submissions</td>
+      <td><div>Monthly data submission</div><div class="small muted2">Batches with pipeline status, upload modal, template download, bulk sign-off for checkers</div></td>
+      <td class="small">mfi.submissions</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/mfi/submissions/calendar</td><td class="b">Submission calendar</td>
+      <td><div>Cut-offs and late flags</div><div class="small muted2">Month view, reminders</div></td>
+      <td class="small">mfi.calendar</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span></td></tr>
+      <tr><td class="mono">/mfi/submissions/:batchId</td><td class="b">Batch detail</td>
+      <td><div>Validation and sign-off</div><div class="small muted2">Counts, row errors + CSV, reconciliation, attestation, receipt</div></td>
+      <td class="small">mfi.submissions</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span> <span class="chip int" title="Identity Resolution">E06</span></td></tr>
+      <tr><td class="mono">/mfi/disputes</td><td class="b">Dispute inbox</td>
+      <td><div>Disputes on own data</div><div class="small muted2">SLA timers, filters, export</div></td>
+      <td class="small">mfi.disputes</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span></td></tr>
+      <tr><td class="mono">/mfi/disputes/:id</td><td class="b">Dispute detail</td>
+      <td><div>Respond or correct</div><div class="small muted2">Response, evidence, correction proposal for CIC approval</div></td>
+      <td class="small">mfi.disputes</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/mfi/monitoring</td><td class="b">Portfolio alerts</td>
+      <td><div>Signals on own borrowers</div><div class="small muted2">New external loans, defaults elsewhere, acknowledge</div></td>
+      <td class="small">mfi.monitoring</td><td><span class="chip int" title="Scoring &amp; Rules Engine">E08</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/mfi/institution/users</td><td class="b">Users &amp; roles</td>
+      <td><div>Manage own staff</div><div class="small muted2">Invite, assign CIC role templates, suspend, MFA reset, read-only permission matrix</div></td>
+      <td class="small">mfi.users (Administrator)</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/mfi/institution/api-keys</td><td class="b">API keys &amp; webhooks</td>
+      <td><div>System integration</div><div class="small muted2">Client credentials, scopes, rotate/revoke, webhooks, developer docs</div></td>
+      <td class="small">mfi.apiKeys (Administrator)</td><td><span class="chip int" title="API Gateway &amp; Edge">E01</span> <span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/mfi/institution/billing</td><td class="b">Usage &amp; billing</td>
+      <td><div>Costs and plan</div><div class="small muted2">Plan, wallet, default payment method, report purchases, invoices, subscription offer</div></td>
+      <td class="small">mfi.billing</td><td><span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/mfi/institution/audit</td><td class="b">Audit trail</td>
+      <td><div>Who in the MFI searched whom and why</div><div class="small muted2">Filters, export</div></td>
+      <td class="small">mfi.audit</td><td><span class="chip int" title="Audit &amp; Security Logging">E19</span></td></tr>
+      <tr><td class="mono">/mfi/resources/announcements</td><td class="b">Notices</td>
+      <td><div>Read and acknowledge</div><div class="small muted2">Mandatory notices with read receipts</div></td>
+      <td class="small">mfi.announcements</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/mfi/resources/census</td><td class="b">Census data</td>
+      <td><div>Outreach data input</div><div class="small muted2">CSV or manual entry, validation, versions</div></td>
+      <td class="small">mfi.census</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/mfi/resources/alt-data</td><td class="b">Alternative data</td>
+      <td><div>Telco/utility signals with consent</div><div class="small muted2">Information-only view</div></td>
+      <td class="small">mfi.altData</td><td><span class="chip int" title="External Integration Hub">E24</span></td></tr></tbody>
+  </table>
+</div>
+<div class="section">
+  <h2>7. Government Portal — Supervision</h2>
+  <p class="lead"><b>Base route:</b> <span class="mono">/gov</span> · <b>Users:</b> Central Bank of Myanmar / FRD — Director, Supervisors (national &amp; regional), Consumer Protection, Analyst, Licensing · <b>23 pages</b></p>
+  <table class="grid pages">
+    <thead><tr><th style="width:21%">Route</th><th style="width:15%">Page</th><th>Purpose &amp; key UI</th><th style="width:15%">Access</th><th style="width:12%">Engines</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">/gov</td><td class="b">Role home</td>
+      <td><div>Lands each role on its work</div><div class="small muted2">"My work" queue per role</div></td>
+      <td class="small">All government roles</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span></td></tr>
+      <tr><td class="mono">/gov/dashboard</td><td class="b">Executive dashboard</td>
+      <td><div>Sector health</div><div class="small muted2">KPI tiles with definitions, filters, trend charts, regional PAR30 map with portfolio-by-region list, top-risk MFIs, EWS and dispute SLA</div></td>
+      <td class="small">gov.dashboard</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/lending</td><td class="b">Lending activity</td>
+      <td><div>Citizen and lending monitoring</div><div class="small muted2">Applications online vs branch, approval rate, decline reasons, disbursement by region/MFI, report requests, adoption</div></td>
+      <td class="small">gov.lending</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span> <span class="chip int" title="Loan Application Hub">E10</span> <span class="chip int" title="Citizen Report Request Workflow">E11</span></td></tr>
+      <tr><td class="mono">/gov/kpi-dictionary</td><td class="b">KPI dictionary</td>
+      <td><div>One definition per number</div><div class="small muted2">Definitions, sources, frequency, lineage</div></td>
+      <td class="small">gov.kpi</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/mfi</td><td class="b">Institution register</td>
+      <td><div>All MFIs (regional scope applied)</div><div class="small muted2">Licence, tier, capital, status, compliance</div></td>
+      <td class="small">gov.institutions</td><td><span class="chip int" title="Institution Master &amp; Licensing">E03</span></td></tr>
+      <tr><td class="mono">/gov/mfi/:id</td><td class="b">Institution detail</td>
+      <td><div>One MFI</div><div class="small muted2">Status history, prudential snapshot, cases, licence change request (maker-checker)</div></td>
+      <td class="small">gov.institutions</td><td><span class="chip int" title="Institution Master &amp; Licensing">E03</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/compliance</td><td class="b">Reporting compliance</td>
+      <td><div>Who reports on time and cleanly</div><div class="small muted2">On-time %, DQ score, rejected rows, 6-month grid</div></td>
+      <td class="small">gov.compliance</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/prudential</td><td class="b">Prudential metrics</td>
+      <td><div>Per-MFI health</div><div class="small muted2">NPL, PAR, LDR, concentration, peer benchmark</div></td>
+      <td class="small">gov.prudential</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/cases</td><td class="b">Supervisory cases</td>
+      <td><div>Case list</div><div class="small muted2">Owner, SLA, severity, create from alert</div></td>
+      <td class="small">gov.cases</td><td><span class="chip int" title="Supervision &amp; Case Management">E13</span></td></tr>
+      <tr><td class="mono">/gov/cases/:id</td><td class="b">Case detail</td>
+      <td><div>Run a case to closure</div><div class="small muted2">Stepper, documents, correspondence, information requests, decision approval, action</div></td>
+      <td class="small">gov.cases</td><td><span class="chip int" title="Supervision &amp; Case Management">E13</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/info-requests</td><td class="b">Information requests</td>
+      <td><div>Requests to MFIs</div><div class="small muted2">Due dates, status</div></td>
+      <td class="small">gov.infoRequests</td><td><span class="chip int" title="Supervision &amp; Case Management">E13</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/gov/ews</td><td class="b">EWS alerts &amp; rules</td>
+      <td><div>Early-warning queue</div><div class="small muted2">Severity, rule version, investigate → case, dismiss with reason, rules library</div></td>
+      <td class="small">gov.ews</td><td><span class="chip int" title="Scoring &amp; Rules Engine">E08</span> <span class="chip int" title="Supervision &amp; Case Management">E13</span></td></tr>
+      <tr><td class="mono">/gov/over-indebtedness</td><td class="b">Over-indebtedness</td>
+      <td><div>Multiple borrowing by township</div><div class="small muted2">Charts, table, justified borrower drill-down (logged)</div></td>
+      <td class="small">gov.overIndebtedness (+ gov.drilldown)</td><td><span class="chip int" title="Scoring &amp; Rules Engine">E08</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span> <span class="chip int" title="Audit &amp; Security Logging">E19</span></td></tr>
+      <tr><td class="mono">/gov/disputes</td><td class="b">Dispute oversight</td>
+      <td><div>All disputes and SLA breaches</div><div class="small muted2">Filters, escalation to CBM decision</div></td>
+      <td class="small">gov.disputes</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span></td></tr>
+      <tr><td class="mono">/gov/complaints</td><td class="b">Complaint register</td>
+      <td><div>Public grievances</div><div class="small muted2">Assign, status, link to MFI, open case</div></td>
+      <td class="small">gov.complaints</td><td><span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span> <span class="chip int" title="Supervision &amp; Case Management">E13</span></td></tr>
+      <tr><td class="mono">/gov/census</td><td class="b">Census &amp; township map</td>
+      <td><div>Outreach geography</div><div class="small muted2">Township choropleth (borrowers, women, average loan), township profile, gender by region</div></td>
+      <td class="small">gov.census</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/alt-data</td><td class="b">Alternative data (pilot)</td>
+      <td><div>Telco/utility coverage</div><div class="small muted2">Pilot dashboards</div></td>
+      <td class="small">gov.altData</td><td><span class="chip int" title="External Integration Hub">E24</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/ai-insights</td><td class="b">AI insights</td>
+      <td><div>Anomaly and over-indebtedness insights</div><div class="small muted2">Explainable insight cards, open case</div></td>
+      <td class="small">gov.aiInsights</td><td><span class="chip int" title="AI Services">E25</span></td></tr>
+      <tr><td class="mono">/gov/announcements</td><td class="b">Regulatory notices</td>
+      <td><div>Draft notices with classification</div><div class="small muted2">Editor, classification, send to CMS approval</div></td>
+      <td class="small">gov.announcements</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/publication-approval</td><td class="b">Publication approval</td>
+      <td><div>Director sign-off before public release</div><div class="small muted2">Queue of notices and statistics</div></td>
+      <td class="small">gov.publicationApproval</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/reports</td><td class="b">Reports</td>
+      <td><div>Statutory and scheduled reports</div><div class="small muted2">Catalogue, generate, schedule, recipients</div></td>
+      <td class="small">gov.reports</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span> <span class="chip int" title="Document &amp; File Service">E21</span></td></tr>
+      <tr><td class="mono">/gov/analytics</td><td class="b">Ad-hoc builder</td>
+      <td><div>Explore anonymised data</div><div class="small muted2">Dimension + metric + filter, chart/table</div></td>
+      <td class="small">gov.reports</td><td><span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/policy-simulation</td><td class="b">Policy impact analysis</td>
+      <td><div>What-if on rule thresholds</div><div class="small muted2">DTI cap and max-loans sliders, impact chart</div></td>
+      <td class="small">gov.policy</td><td><span class="chip int" title="Scoring &amp; Rules Engine">E08</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr></tbody>
+  </table>
+</div>
+<div class="section">
+  <h2>8. Government Portal — CMS &amp; Platform administration</h2>
+  <p class="lead"><b>Base route:</b> <span class="mono">/gov/admin</span> · <b>Users:</b> CIC operations — Super Admin, Security Admin, Content Editor/Publisher, Data Steward, Helpdesk, Billing, Auditor, DPO · <b>28 pages</b></p>
+  <table class="grid pages">
+    <thead><tr><th style="width:21%">Route</th><th style="width:15%">Page</th><th>Purpose &amp; key UI</th><th style="width:15%">Access</th><th style="width:12%">Engines</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">/gov/admin</td><td class="b">Operations dashboard</td>
+      <td><div>Run the platform</div><div class="small muted2">"Needs your action" queue, operations / security / content / business tabs, system health, report requests</div></td>
+      <td class="small">adm.operations</td><td><span class="chip int" title="Operations: Scheduler, Config &amp; Backup">E23</span> <span class="chip int" title="Audit &amp; Security Logging">E19</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/admin/approvals</td><td class="b">Approvals inbox</td>
+      <td><div>Maker-checker decisions</div><div class="small muted2">Pending by checker role, diff, approve/reject with reason, history</div></td>
+      <td class="small">adm.approvals</td><td><span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms</td><td class="b">Content</td>
+      <td><div>All site and portal content</div><div class="small muted2">Type filters, status, translation gaps</div></td>
+      <td class="small">cms.content</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/new · /cms/edit/:id</td><td class="b">Content editor</td>
+      <td><div>Write and publish content</div><div class="small muted2">EN/MM side by side, Zawgyi check, classification, SEO, schedule, workflow, version diff/restore, preview</div></td>
+      <td class="small">cms.content (editor ≠ publisher)</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/media</td><td class="b">Media library</td>
+      <td><div>Images and documents</div><div class="small muted2">Upload with alt text, virus scan, usage</div></td>
+      <td class="small">cms.media</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Document &amp; File Service">E21</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/navigation</td><td class="b">Navigation builder</td>
+      <td><div>Menus and landing layout</div><div class="small muted2">Drag or keyboard reordering, menu editor</div></td>
+      <td class="small">cms.navigation</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/notices</td><td class="b">Targeted notices</td>
+      <td><div>Notices to MFI groups</div><div class="small muted2">Targeting, read receipts, acknowledgement report</div></td>
+      <td class="small">cms.notices</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/forms</td><td class="b">Forms builder</td>
+      <td><div>Grievance, feedback, surveys</div><div class="small muted2">Field editor, routing to helpdesk</div></td>
+      <td class="small">cms.forms</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/settings</td><td class="b">Site settings</td>
+      <td><div>Logos, contacts, emergency banner</div><div class="small muted2">Global settings with approval</div></td>
+      <td class="small">cms.settings</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/translations</td><td class="b">UI translations</td>
+      <td><div>EN/MM string dictionary</div><div class="small muted2">Missing/edited filters, completion %, export</div></td>
+      <td class="small">cms.translations</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/admin/cms/analytics</td><td class="b">Content analytics</td>
+      <td><div>What people read and search</div><div class="small muted2">Views, no-result searches, FAQ votes</div></td>
+      <td class="small">cms.analytics</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span> <span class="chip int" title="Reporting, Analytics &amp; Geo (DWH)">E20</span></td></tr>
+      <tr><td class="mono">/gov/admin/services</td><td class="b">Service catalogue</td>
+      <td><div>Services shown to the public</div><div class="small muted2">Edit service, public visibility toggle, status</div></td>
+      <td class="small">cms.services</td><td><span class="chip int" title="Content Management (Headless CMS)">E18</span></td></tr>
+      <tr><td class="mono">/gov/admin/notifications</td><td class="b">SMS &amp; email templates</td>
+      <td><div>Message templates</div><div class="small muted2">EN/MM templates, variables, SMS length, delivery log, opt-outs</div></td>
+      <td class="small">cms.notifications</td><td><span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/gov/admin/iam/users</td><td class="b">Users &amp; access</td>
+      <td><div>Staff and citizen accounts</div><div class="small muted2">Create, change role, regional scope, disable, unlock, break-glass</div></td>
+      <td class="small">adm.users</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/access/roles</td><td class="b">Roles &amp; permissions</td>
+      <td><div>Government roles and MFI role templates</div><div class="small muted2">Role list, heat-map, new/clone/disable/delete via approval</div></td>
+      <td class="small">adm.roles</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/access/roles/:id</td><td class="b">Role detail</td>
+      <td><div>Permission matrix</div><div class="small muted2">CRUD + Approve + Export per feature, data scope, regions, segregation-of-duties warnings, users with the role</div></td>
+      <td class="small">adm.roles</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/iam/policies</td><td class="b">Security policies</td>
+      <td><div>MFA, passwords, sessions, IP allow-lists</div><div class="small muted2">Policy editor, recertification campaign, attribute rules</div></td>
+      <td class="small">adm.policies</td><td><span class="chip int" title="Identity &amp; Access Management (IAM)">E02</span></td></tr>
+      <tr><td class="mono">/gov/admin/master-data</td><td class="b">Master &amp; reference data</td>
+      <td><div>Institutions and reference tables</div><div class="small muted2">Publish flag, tier, regions, townships, codes, currencies, holidays</div></td>
+      <td class="small">adm.masterData</td><td><span class="chip int" title="Institution Master &amp; Licensing">E03</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/data-quality</td><td class="b">Data quality &amp; ingestion</td>
+      <td><div>Batches across MFIs</div><div class="small muted2">Batch monitor, schema versions, DQ rules, reject queue, reconciliation, re-process</div></td>
+      <td class="small">adm.dataQuality</td><td><span class="chip int" title="Ingestion &amp; Data Quality">E05</span></td></tr>
+      <tr><td class="mono">/gov/admin/identity</td><td class="b">Identity resolution</td>
+      <td><div>Merge / split review</div><div class="small muted2">Candidate pairs, side-by-side compare, decision with checker, lineage</div></td>
+      <td class="small">adm.identity</td><td><span class="chip int" title="Identity Resolution">E06</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/rules</td><td class="b">Scoring &amp; EWS rules</td>
+      <td><div>Versioned rule sets</div><div class="small muted2">Rules table, sample test, activate with effective date, rollback</div></td>
+      <td class="small">adm.rules</td><td><span class="chip int" title="Scoring &amp; Rules Engine">E08</span> <span class="chip int" title="Workflow &amp; Maker-Checker">E17</span></td></tr>
+      <tr><td class="mono">/gov/admin/helpdesk</td><td class="b">Disputes &amp; helpdesk</td>
+      <td><div>Service desk</div><div class="small muted2">Case queue, correction approval, identity tickets, grievances, templates, escalation matrix</div></td>
+      <td class="small">adm.helpdesk</td><td><span class="chip int" title="Dispute &amp; Correction">E12</span> <span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span></td></tr>
+      <tr><td class="mono">/gov/admin/report-requests</td><td class="b">Citizen report requests</td>
+      <td><div>Review queue</div><div class="small muted2">SLA timer, checks, warnings</div></td>
+      <td class="small">adm.reportRequests</td><td><span class="chip int" title="Citizen Report Request Workflow">E11</span></td></tr>
+      <tr><td class="mono">/gov/admin/report-requests/:id</td><td class="b">Report request detail</td>
+      <td><div>Approve &amp; issue or reject</div><div class="small muted2">Automated checks, data processing panel, re-run validation, decision</div></td>
+      <td class="small">adm.reportRequests</td><td><span class="chip int" title="Citizen Report Request Workflow">E11</span> <span class="chip int" title="Inquiry &amp; Credit Report Engine">E07</span> <span class="chip int" title="Notification Service">E16</span></td></tr>
+      <tr><td class="mono">/gov/admin/billing</td><td class="b">Billing &amp; entitlements</td>
+      <td><div>Tariffs, invoices, payments</div><div class="small muted2">Plans, quotas, ledger, invoice run, credit notes, reconciliation, report purchases</div></td>
+      <td class="small">adm.billing</td><td><span class="chip int" title="Metering, Billing &amp; Payments">E15</span></td></tr>
+      <tr><td class="mono">/gov/admin/audit</td><td class="b">Audit &amp; security logs</td>
+      <td><div>Evidence and monitoring</div><div class="small muted2">Audit log filters, saved searches, hash-chain check, security events, SIEM export</div></td>
+      <td class="small">adm.audit</td><td><span class="chip int" title="Audit &amp; Security Logging">E19</span></td></tr>
+      <tr><td class="mono">/gov/admin/system</td><td class="b">System, jobs &amp; backup</td>
+      <td><div>Platform operations</div><div class="small muted2">Config with approval, job scheduler, backup and restore tests, feature flags, API clients</div></td>
+      <td class="small">adm.system</td><td><span class="chip int" title="Operations: Scheduler, Config &amp; Backup">E23</span></td></tr>
+      <tr><td class="mono">/gov/admin/compliance</td><td class="b">Data protection (DPO)</td>
+      <td><div>Privacy obligations</div><div class="small muted2">DSR queue, retention schedule, breach register, DPIAs, acknowledgements</div></td>
+      <td class="small">adm.compliance</td><td><span class="chip int" title="Helpdesk, Grievance &amp; Data Protection">E14</span></td></tr></tbody>
+  </table>
+</div>
+</body></html>
