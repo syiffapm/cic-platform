@@ -1,5 +1,7 @@
 # CIC Myanmar Platform — Prototype
 
+> **Branch `mfi` — MFI Member Portal app:** staff sign-in (`/workspace/login`) and the portal for licensed institutions (`/mfi`). Only MFI accounts can sign in here. The landing page + citizen portal lives on branch `lp`, the Government Portal on branch `cms-admin`; `main` keeps the combined app.
+
 Clickable prototype of the Credit Information Center (CIC) Myanmar platform: **a public website plus Borrower, MFI and Government portals on one shared core**, built from the *CIC Myanmar Platform — E2E Requirements Specification v1.0* ([docs/requirements.md](docs/requirements.md)). Theme (colours, Poppins font) follows the original CIC demo; screens and flows are new.
 
 | Portal | Route | Sign-in |

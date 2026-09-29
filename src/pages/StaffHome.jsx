@@ -3,13 +3,14 @@ import { ArrowRight, Building2, Landmark } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import BrandMark from '@/components/layout/BrandMark';
 import { STAFF_LOGIN } from '@/config/access';
+import { WORKSPACES } from '@/config/app';
 
 const CARDS = { gov: ['Government Portal', '/gov', Landmark], mfi: ['MFI Member Portal', '/mfi', Building2] };
 
 /** /workspace — the staff entry point. Signed-out users go to the staff sign-in. */
 export default function StaffHome() {
   const { sessions } = useAuth();
-  const open = Object.keys(CARDS).filter((p) => sessions[p]);
+  const open = WORKSPACES.filter((p) => sessions[p]);
   if (open.length === 0) return <Navigate to={STAFF_LOGIN} replace />;
   return (
     <div className="min-h-screen bg-slate-950 px-6 py-10 text-white">
