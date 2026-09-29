@@ -1,5 +1,7 @@
 # CIC Myanmar Platform — Prototype
 
+> **Branch `lp` — Landing page app:** public website (`/`) and citizen Borrower self-service (`/borrower`, sign-in `/login`). The MFI Member Portal lives on branch `mfi`, the Government Portal (supervision + CMS/admin) on branch `cms-admin`; `main` keeps the combined app.
+
 Clickable prototype of the Credit Information Center (CIC) Myanmar platform: **a public website plus Borrower, MFI and Government portals on one shared core**, built from the *CIC Myanmar Platform — E2E Requirements Specification v1.0* ([docs/requirements.md](docs/requirements.md)). Theme (colours, Poppins font) follows the original CIC demo; screens and flows are new.
 
 | Portal | Route | Sign-in |
