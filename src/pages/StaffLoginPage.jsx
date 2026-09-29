@@ -7,11 +7,12 @@ import { useAuth } from '@/context/AuthContext';
 import { useStore } from '@/context/StoreContext';
 import { Alert, Button, Input } from '@/components/ui';
 import BrandMark from '@/components/layout/BrandMark';
+import { WORKSPACES } from '@/config/app';
 
 const HOME = { mfi: '/mfi', gov: '/gov' };
 const WORKSPACE = { mfi: 'MFI Member Portal', gov: 'Government Portal' };
 const ORG = { mfi: 'Licensed microfinance institutions', gov: 'Central Bank of Myanmar (FRD) and CIC — supervision, content and platform administration' };
-const STAFF = DEMO_USERS.filter((u) => u.portal !== 'borrower');
+const STAFF = DEMO_USERS.filter((u) => WORKSPACES.includes(u.portal));
 const MAX_ATTEMPTS = 5;
 const roleName = (id) => ROLES.find((r) => r.id === id)?.name;
 
@@ -57,7 +58,7 @@ export default function StaffLoginPage() {
     navigate(from?.startsWith(HOME[pending.portal]) ? from : HOME[pending.portal], { replace: true });
   };
 
-  const groups = useMemo(() => ['gov', 'mfi'].map((p) => ({ p, users: STAFF.filter((u) => u.portal === p) })), []);
+  const groups = useMemo(() => WORKSPACES.map((p) => ({ p, users: STAFF.filter((u) => u.portal === p) })), []);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
